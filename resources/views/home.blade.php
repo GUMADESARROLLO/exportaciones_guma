@@ -33,80 +33,148 @@
             <div class="pcoded-inner-content">
                 <div class="main-body">
                     <div class="page-wrapper">
-                        <!-- [ Main Content ] start -->
                         <div class="row">
-                            <div class="col-xl-12">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <h5>LISTA DE REGISTROS</h5>
+                            <div class="col-md-12">
+                                <div class="input-group" style="width: 100%;" id="cont_search">
+                                <input type="text" id="InputBuscar" class="form-control bg-white" placeholder="Buscar..." aria-label="Username" aria-describedby="basic-addon1">
+                                    <div class="input-group-prepend" id="btnAdd">
+                                        <span class="input-group-text" id="basic-addon1">
+                                            <i class="material-icons text-black ml-1">add</i>
+                                        </span>
                                     </div>
-                                </div>
-                                <!-- <div class="row justify-content-end">
-                                        <div class="card-block">
-                                            <table class=" table-bordered" width="35%">
-                                                <thead>
-                                                    <tr>
-                                                        <th colspan="3" scope="col">SIGNIFICADO DE COLORES</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <th scope="row">1</th>
-                                                        <th scope="row">TRANSITO</th>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row">2</th>
-                                                        <th scope="row">PRODUCTO MINSA</th>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row">3</th>
-                                                        <th scope="row">PEDIDO</th>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>-->
-                                <div class="row mt-3 mx-4">
-                                    <div class="col-md-9">
-                                        <div class="input-group" style="width: 100%;" id="cont_search">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text" id="basic-addon1"><i class="fas fa-search"></i></span>
-                                            </div>
-                                            <input type="text" id="InputBuscar" class="form-control bg-white" placeholder="Buscar..." aria-label="Username" aria-describedby="basic-addon1">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-1">
-                                        <div class="input-group  justify-content-center">
-                                            <button class="btn btn-primary add-row-dt-pedidos">Agregar</button>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-1">
-                                        <div class="input-group  justify-content-center">
-                                            <button class="btn btn-success" id="btn-Guardar">Guardar</button>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-1">
-                                        <div class="input-group  justify-content-center">
-                                            <button class="btn btn-danger add-row-dt-pedidos">Eliminar</button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card-block table-border-style mt-4">
-                                    <div class="table-responsive">
-                                        <table class="table table-hover " id="tblPedidos" width="100%">
-                                        </table>
-                                    </div>
+                                    
                                 </div>
                             </div>
                         </div>
-                        <!-- [ Tabla Categorias ] end -->
-                    </div>
-                    <!-- [ Main Content ] end -->
+                        <div class="row">
+                            <div class="col-md-12">
+                            <table class="table table-striped table-bordered table-sm post_back mt-3" width="100%" id="tblPedidos">
+                                <thead class="bg-blue text-light"></thead>
+                            </table>
+                            </div>
+                        </div>
+                    </div>                    
                 </div>
             </div>
         </div>
     </div>
 </div>
 </div>
-<!-- [ Main Content ] end -->
+
+<!-- Modal -->
+
+
+<div class="modal fade modal-fullscreen" id="mdlResumen" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Nueva Pedido / Tránsito </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                <div class="col-sm-12 ">
+                        <p class="text-muted m-2">Descripción / Código</p>
+                        <select class="selectpicker col-sm-12 form-control " id="select-cate" data-show-subtext="false" data-live-search="true" >
+                        </select>
+                    </div>
+                </div>	
+                
+                <div class="row mt-3 ">
+                    <div class="col-sm-2">
+                        <p class="text-muted m-2">FECHA DE DESPACHO</p>
+                        <input type="text" class="input-fecha" id="f2">
+                    </div>
+                    <div class="col-sm-2">
+                        <p class="text-muted m-2">FECHA ORDEN COMPRA</p>
+                        <input type="text" class="input-fecha" id="f2">
+                    </div>
+                    
+                    <div class="col-sm-4 border-right">
+                        <p class="text-muted m-2">LAB</p>
+                        <select class="selectpicker col-sm-12">
+                            <option>LAB 01</option>
+                            <option>LAB 02</option>
+                            <option>LAB 03</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-2 ">
+                        <p class="text-muted m-2">PRECIO FARMACIA</p>
+                        <input type="number" onkeypress="if ( isNaN(this.value + String.fromCharCode(event.keyCode) )) return false;" class="form-control"  placeholder="C$ 00.00">
+                    </div>
+                    <div class="col-sm-2 ">
+                        <p class="text-muted m-2">PRECIO PUBLICO</p>
+                        <input type="number" onkeypress="if ( isNaN(this.value + String.fromCharCode(event.keyCode) )) return false;" class="form-control"  placeholder="C$ 00.00">
+                    </div>
+                    
+                </div>
+                <div class="row mt-3">
+                    <div class="col-sm-2 ">
+                        <p class="text-muted m-2">MIFIC</p>
+                        <select class="selectpicker">
+                            <option>SI</option>
+                            <option>NO</option>
+                            <option>SOLICITADO</option>
+                        </select>
+                    </div>
+                    
+                    <div class="col-sm-2 ">
+                        <p class="text-muted m-2">REGENCIA NECESITA PERMISO </p>
+                        <select class="selectpicker">
+                            <option>SI</option>
+                            <option>NO</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-2">
+                        <p class="text-muted m-2">Consignado </p>
+                        <select class="selectpicker">
+                            <option>SI</option>
+                            <option>NO</option>
+                            <option>SOLICITADO</option>
+                        </select>
+                    </div>
+
+                    <div class="col-sm-2 border-right">
+                        <p class="text-muted m-2">MINSA ó Privado</p>
+                        <select class="selectpicker">
+                            <option>MINSA</option>
+                            <option>PRIVADO</option>
+                        </select>
+                    </div>    
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label" >CANTIDAD:</label>
+                            <input type="number" onkeypress="if ( isNaN(this.value + String.fromCharCode(event.keyCode) )) return false;" class="form-control" placeholder=" 00.00">
+                        </div>
+                    </div> 
+                    <div class="col-sm-2">
+                        <div class="form-group col-sm-12">
+                            <label for="recipient-name" class="col-form-label" >ESTADO:</label>
+                            <select class="selectpicker">
+                                <option>TRANSITO</option>
+                                <option>PRODUCTO MINSA</option>
+                                <option>PEDIDO</option>
+                            </select>
+                        </div>
+                    </div>  
+                </div>
+                
+                <div class="form-group">
+                    <label for="message-text" class="col-form-label" id="id-nota">Comentarios:</label>
+                    <textarea class="form-control" id="id-coment" placeholder="Escriba una nota."></textarea>
+                </div>
+
+
+            </div>
+		<div class="modal-footer">			
+			<button type="button" class="btn btn-primary" id="id-print-pdf">
+                <i class="material-icons text-white ml-2">note_add</i>
+            </button>
+            
+		</div>
+		</div>
+	</div>
+</div>
 @endsection

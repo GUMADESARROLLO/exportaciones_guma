@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models;
 use App\Models\pedido;
+use App\Models\Articulos;
 use App\Traits\ModelScopes;
 use Illuminate\Support\Facades\DB;
 use Exception;
@@ -35,7 +36,13 @@ class HomeController extends Controller
     public function getData()
     {
         $pedido = pedido::getPedidos();
+        //$pedido = Articulos::getArticulos();
         return response()->json($pedido);
+    }
+    public function getArti()
+    {
+        $Articulos = Articulos::getArticulos();
+        return response()->json($Articulos);
     }
     public function guardar(Request $request)
     {
@@ -78,5 +85,6 @@ class HomeController extends Controller
 
     public function cambiarEstado()
     {
+        
     }
 }

@@ -54,6 +54,7 @@ Route::post('rol/actualizar', 'Admin\RolController@actualizar')->name('rol/actua
 //Route::resource('turnos','User\TurnoController');
 
 Route::get('pedido', 'HomeController@getData')->name('pedido');
+Route::get('articulos', 'HomeController@getArti')->name('articulos');
 
 
 

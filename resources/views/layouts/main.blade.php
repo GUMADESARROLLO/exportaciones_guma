@@ -8,7 +8,7 @@
   <!-- CSRF Token -->
   <meta name="csrf-token" content="{{ csrf_token() }}">
 
-  <title>@yield('title','Producción - INNOVA')</title>
+  <title>@yield('title','EXPORTACIONES - GUMA')</title>
   <!-- Charts Morris -->
   <link rel="stylesheet" href="{{ asset('plugins/chart-morris/css/morris.css') }}">
 
@@ -23,6 +23,7 @@
 
   <!-- vendor css -->
   <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/bootstrap-select.min.css') }}">
 
   <!-- datatable CSS -->
   <!--<link rel="stylesheet" href="{{ asset('css/jquery.dataTables.min.css') }}">-->
@@ -67,20 +68,21 @@
 
   <script src="{{ asset('js/jquery-3.5.1.js') }}"></script>
   <script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
-  <script src="{{ asset('js/dataTables.buttons.min.js') }}"></script>
-  <script src="{{ asset('js/dataTables.select.min.js') }}"></script>
-  <script src="{{ asset('js/dataTables.dateTime.min.js') }}"></script>
-  <script src="{{ asset('js/dataTables.rowReorder.min.js') }}"></script>
-  <script src="{{ asset('plugins/bootstrap/js/bootstrap.min.js') }}"></script>
+  <script src="{{ asset('js/popper.min.js') }}"></script>
+  <script src="{{ asset('js/bootstrap.min.js') }}"></script>
   <script src="{{ asset('js/jquery.slimscroll.min.js') }}"></script>
   <script src="{{ asset('js/pcoded.min.js') }}"></script>
-  <script src="{{ asset('js/bootstrap-select.js') }}"></script>
+  <script src="{{ asset('js/daterangepicker.js') }}"></script>
+  <script src="{{ asset('js/js_general.js') }}"></script>
   <script src="{{ asset('js/moment.js') }}"></script>
+  
   <script src="{{ asset('js/daterangepicker.js') }}"></script>
   <script src="{{ asset('js/bootstrap-datetimepicker.min.js') }}"></script>
-  <script src="{{ asset('js/sweetalert2.all.js') }}"></script>
-  <script src="{{ asset('js/js_general.js') }}"></script>
-       <!-- JS PLUGINS -->
+  <script src="{{ asset('js/bootstrap-select.min.js') }}"></script>
+  <script src="{{ asset('js/popper.min.js') }}"></script>
+
+
+  <!-- JS PLUGINS -->
   @yield('scriptsPlugins')
   @yield('metodosjs')
 </body>

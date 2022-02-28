@@ -1,6 +1,5 @@
 <nav class="navbar navbar-expand-lg" style="background: #3f4d67;color: #a9b7d0;">
     <a class="navbar-brand" >
-        <img src="http://localhost/produccion/images/innova-blanco.png" width="100px" class="d-inline-block align-top">
         <span class="ml-4 font-weight-bold  text-light " style="font-size: 25px">EXPORTACIONES</span>  
     </a>
     <div class="navbar-nav ml-auto">
