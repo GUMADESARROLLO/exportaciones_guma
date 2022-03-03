@@ -55,6 +55,12 @@ Route::post('rol/actualizar', 'Admin\RolController@actualizar')->name('rol/actua
 
 Route::get('pedido', 'HomeController@getData')->name('pedido');
 Route::get('articulos', 'HomeController@getArti')->name('articulos');
+Route::get('laboratorios', 'HomeController@getLab')->name('laboratorios');
+Route::get('consignado', 'HomeController@getConsig')->name('consignado');
+
+Route::post('guardar_pedido', 'HomeController@guardar')->name('guardar_pedido');
+Route::post('editar_pedido', 'HomeController@editar')->name('editar_pedido');
+Route::post('cambiar_estado', 'HomeController@cambiarEstado')->name('cambiar_estado');
 
 
 

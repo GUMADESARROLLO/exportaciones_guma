@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models;
 use App\Models\pedido;
 use App\Models\Articulos;
+use App\Models\Laboratorios;
+use App\Models\Consignados;
 use App\Traits\ModelScopes;
 use Illuminate\Support\Facades\DB;
 use Exception;
@@ -44,36 +46,87 @@ class HomeController extends Controller
         $Articulos = Articulos::getArticulos();
         return response()->json($Articulos);
     }
+    public function getLab()
+    {
+        $Laboratorios = Laboratorios::getLaboratorios();
+        return response()->json($Laboratorios);
+    }
+    public function getConsig()
+    {
+        $Consignados = Consignados::getConsignados();
+        return response()->json($Consignados);
+    }
     public function guardar(Request $request)
     {
 
         try {
             DB::transaction(function () use ($request) {
-                $data = $request->input('array');
+                $data = $request->input('data');
                 $array = array();
                 $i= 0;
-                foreach ($data as $dataP) {
-                    $array[$i]['numOrden']           =   $dataP['numOrden'];
-                    $array[$i]['fecha_despacho']     =   $dataP['fecha_despacho'];
-                    $array[$i]['fecha_orden']        =   $dataP['fecha_orden'];
-                    $array[$i]['codigo']             =   $dataP['codigo'];
-                    $array[$i]['descripcion']        =   $dataP['descripcion']  ;
-                    $array[$i]['lab']                =   $dataP['lab'];
-                    $array[$i]['cantidad']           =   $dataP['cantidad'];
-                    $array[$i]['mific']              =   $dataP['mific'];
-                    $array[$i]['precio_farm']        =   $dataP['precio_farm'];
-                    $array[$i]['precio_publ']        =   $dataP['precio_publ'];
-                    $array[$i]['permiso_necesario']  =   $dataP['permiso_necesario'];
-                    $array[$i]['consignado']         =   $dataP['consignado'];
-                    $array[$i]['tipo']               =   $dataP['tipo'];
-                    $array[$i]['comentarios']        =   $dataP['comentarios'];
-                    $array[$i]['estado']             =   $dataP['estado'];             //actualizar detalles de la requisa
-                    
-                };
                 $pedido = new pedido();
-                $pedido->save();
-                //return redirect()->back()->with('message-success', 'Se creo la Requisa con exito :)');
+                foreach ($data as $dataP) {
+                    
+                    $pedido->numOrden           =   $dataP['orden'];
+                    $pedido->numFactura         =   $dataP['factura'];
+                    $pedido->fecha_despacho     =   $dataP['fecha_despacho'];
+                    $pedido->fecha_orden        =   $dataP['fecha_orden'];
+                    $pedido->codigo             =   $dataP['codigo'];
+                    $pedido->descripcion        =   $dataP['descripcion']  ;
+                    $pedido->lab                =   $dataP['lab'];
+                    $pedido->cantidad           =   $dataP['cantidad'];
+                    $pedido->mific              =   $dataP['mific'];
+                    $pedido->precio_farm        =   $dataP['precio_farm'];
+                    $pedido->precio_publ        =   $dataP['precio_public'];
+                    $pedido->permiso_necesario  =   $dataP['permiso_necesario'];
+                    $pedido->consignado         =   $dataP['consignado'];
+                    $pedido->tipo               =   $dataP['tipo'];
+                    $pedido->comentarios        =   $dataP['comentarios'];
+                    $pedido->estado             =   $dataP['estado'];                
+                    $pedido->activo             =   "S";                
+                    $pedido->save();             
+                    
+                };                
+                return response()->json($pedido);
+            });
+        } catch (Exception $e) {
+            $mensaje =  'Excepción capturada: ' . $e->getMessage() . "\n";
 
+            return response()->json($mensaje);
+        }
+    }
+    public function editar(Request $request)
+    {
+
+        try {
+            DB::transaction(function () use ($request) {
+                $data = $request->input('data');
+                $array = array();
+                $i= 0;
+
+                foreach ($data as $dataP) {
+                    
+                    pedido::where('id', $dataP['id'])->update([
+                        'numOrden' =>   $dataP['orden'],
+                        'numFactura' => $dataP['factura'],
+                        'fecha_despacho' => date("Y-m-d", strtotime($dataP['fecha_despacho'])),
+                        'fecha_orden' => date("Y-m-d", strtotime($dataP['fecha_orden'])),
+                        'codigo' => $dataP['codigo'],
+                        'descripcion' => $dataP['descripcion'],
+                        'lab' => $dataP['lab'],
+                        'cantidad' => $dataP['cantidad'],
+                        'mific' => $dataP['mific'],
+                        'precio_farm' => $dataP['precio_farm'],
+                        'precio_publ' => $dataP['precio_public'],
+                        'permiso_necesario' => $dataP['permiso_necesario'],
+                        'consignado' => $dataP['consignado'],
+                        'tipo' => $dataP['tipo'],
+                        'comentarios' => $dataP['comentarios'],
+                        'estado' => $dataP['estado'],
+                        
+                    ]);
+                    
+                };                
                 return response()->json($pedido);
             });
         } catch (Exception $e) {
@@ -83,8 +136,27 @@ class HomeController extends Controller
         }
     }
 
-    public function cambiarEstado()
+    public function cambiarEstado(Request $request)
     {
-        
+        try {
+            DB::transaction(function () use ($request) {
+                $data = $request->input('data');
+                $array = array();
+                $i= 0;
+
+                foreach ($data as $dataP) {
+                    
+                    pedido::where('id', $dataP['id'])->update([
+                        'activo' => 'N',                        
+                    ]);
+                    
+                };                
+                return response()->json($pedido);
+            });
+        } catch (Exception $e) {
+            $mensaje =  'Excepción capturada: ' . $e->getMessage() . "\n";
+
+            return response()->json($mensaje);
+        } 
     }
 }

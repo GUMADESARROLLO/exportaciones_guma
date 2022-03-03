@@ -8,7 +8,7 @@
   <!-- CSRF Token -->
   <meta name="csrf-token" content="{{ csrf_token() }}">
 
-  <title>@yield('title','EXPORTACIONES - GUMA')</title>
+  <title>@yield('title','IMPORTACIONES - GUMA')</title>
   <!-- Charts Morris -->
   <link rel="stylesheet" href="{{ asset('plugins/chart-morris/css/morris.css') }}">
 

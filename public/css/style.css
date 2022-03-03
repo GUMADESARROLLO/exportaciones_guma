@@ -10635,7 +10635,7 @@ Full screen Modal
 */
 .modal.modal-fullscreen .modal-dialog {
   width: 90%;
-  height: 80%!important;
+  height: 90%!important;
   max-width: none; 
   top: 5px!important;
   left: 10px!important;
@@ -10645,7 +10645,7 @@ Full screen Modal
 
 .modal.modal-fullscreen .modal-content {
   height: auto;
-  height: 80%!important;
+  height: 90%!important;
   border-radius: 0;
   border: none; }
 
