@@ -4,15 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Articulos extends Model
+class ArticulosGP extends Model
 {
     protected $connection = 'sqlsrv';
     public $timestamps = false;
-    protected $table = "PRODUCCION.dbo.GMV_mstr_articulos";
+    protected $table = "PRODUCCION.dbo.GP_GMV_mstr_articulos";
 
     public static function getArticulos()
     {
 
-        return Articulos::all();
+        return ArticulosGP::all();
     }
 }

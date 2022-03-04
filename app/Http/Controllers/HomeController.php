@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models;
 use App\Models\pedido;
-use App\Models\Articulos;
+use App\Models\ArticulosUMK;
+use App\Models\ArticulosGP;
 use App\Models\Laboratorios;
 use App\Models\Consignados;
 use App\Traits\ModelScopes;
@@ -41,9 +42,14 @@ class HomeController extends Controller
         //$pedido = Articulos::getArticulos();
         return response()->json($pedido);
     }
-    public function getArti()
+    public function getArtiUMK()
     {
-        $Articulos = Articulos::getArticulos();
+        $Articulos = ArticulosUMK::getArticulos();
+        return response()->json($Articulos);
+    }
+    public function getArtiGP()
+    {
+        $Articulos = ArticulosUMK::getArticulos();
         return response()->json($Articulos);
     }
     public function getLab()
@@ -72,12 +78,14 @@ class HomeController extends Controller
                     $pedido->fecha_despacho     =   $dataP['fecha_despacho'];
                     $pedido->fecha_orden        =   $dataP['fecha_orden'];
                     $pedido->codigo             =   $dataP['codigo'];
+                    $pedido->empresa            =   $dataP['empresa'];
                     $pedido->descripcion        =   $dataP['descripcion']  ;
                     $pedido->lab                =   $dataP['lab'];
                     $pedido->cantidad           =   $dataP['cantidad'];
                     $pedido->mific              =   $dataP['mific'];
                     $pedido->precio_farm        =   $dataP['precio_farm'];
                     $pedido->precio_publ        =   $dataP['precio_public'];
+                    $pedido->precio_inst        =   $dataP['precio_institu'];
                     $pedido->permiso_necesario  =   $dataP['permiso_necesario'];
                     $pedido->consignado         =   $dataP['consignado'];
                     $pedido->tipo               =   $dataP['tipo'];

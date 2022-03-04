@@ -14,7 +14,7 @@
                     <div class="mb-4">
                         <i class="feather icon-unlock auth-icon"></i>
                     </div>
-                    <img src="{{ asset('images/logoinnova.png') }}" width="50%" class="mb-3"><hr>
+                    <img src="{{ asset('images/logo.jpg') }}" width="70%" class="mb-3"><hr>
                     <h5 class="mb-4 mt-3">Inicia sesión</h5>
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
@@ -42,7 +42,7 @@
                             {{ __('Inicio') }}
                         </button>
                     </form>
-                    <p class="mb-2 text-muted"><?php echo "INNOVA INDUSTRIAS S.A. Copyright ".date("Y").""?></p>
+                    <p class="mb-2 text-muted"><?php echo "MASTER DE IMPORTACIONES. Copyright ".date("Y").""?></p>
                 </div>
             </div>
         </div>

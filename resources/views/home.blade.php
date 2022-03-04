@@ -23,6 +23,24 @@
         /* background: linear-gradient(to bottom, white 0%, #0F85FC 100%);*/
         margin-inline: 5px;
     }
+    .tbl_rows_transito{
+        background-color: #92d050 !important;
+        color: #000 !important;
+    }
+    .tbl_rows_pedido{
+        background-color: #FFFFFF !important;
+        color: #000 !important;
+    }
+    .tbl_rows_producto_minsa{
+        background-color: #ffe699 !important;
+        color: #000 !important;
+    }
+    .icon-red {
+        color:red
+    }
+    .icon-blue {
+        color:#0072bc 
+    }
 </style>
 @endsection
 @section('content')
@@ -34,31 +52,41 @@
                 <div class="main-body">
                     <div class="page-wrapper">
                         <div class="form-row">
-                            <div class="form-group col-md-10">
+                            <div class="form-group col-md-9">
                                 <div class="input-group" style="width: 100%;" id="cont_search">
                                 <span class="input-group-text" id="basic-addon1">
-                                            <i class="material-icons text-black ml-1">search</i>
-                                        </span>
+                                    <i class="material-icons text-black ml-1">search</i>
+                                </span>
                                 <input type="text" id="InputBuscar" class="form-control bg-white" placeholder="Buscar..." aria-label="Username" aria-describedby="basic-addon1">
                                     <div class="input-group-prepend" id="btnAdd">
                                         <span class="input-group-text" id="basic-addon1">
-                                            <i class="material-icons text-black ml-1">add</i>
+                                            <i class="material-icons icon-blue ml-1">add</i>
                                         </span>
                                     </div>
                                     
                                 </div>
                             </div>
                             <div class="form-group col-md-1 ">
-                                <select class="form-control" id="">
+                                <select class="form-control" id="id_filter_empresa">
+                                    <option value="">Todo</option>
                                     <option>UNIMARK S,A</option>
                                     <option>GUMA PHARMA</option>                                    
                                 </select>
                             </div>
                             <div class="form-group col-md-1 ">
-                                <select class="form-control" id="">
-                                    <option value="0">TRANSITO</option>
-                                    <option value="1">PRODUCTO MINSA</option>
-                                    <option value="2">PEDIDO</option>
+                                <select class="form-control" id="id_filter_tipo">
+                                <option value="">Todo</option>
+                                    <option>TRANSITO</option>
+                                    <option>PRODUCTO MINSA</option>
+                                    <option>PEDIDO</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-1 ">
+                                <select class="form-control" id="id_filter_row">
+                                <option value="-1">Todo</option>
+                                    <option value="7">7</option>
+                                    <option value="20" >20</option>
+                                    <option value="100" >100</option>
                                 </select>
                             </div>
                             
@@ -92,19 +120,26 @@
             </div>
             <div class="modal-body">
                 <div class="form-row mt-3 ">
-                    <div class="form-group col-md-2">
+                    <div class="form-group col-md-1">
                         <p class="text-muted m-2">Nº RECIBO</p>
                         <input type="text" class="form-control" id="id_numero_recibo">
                     </div>
-                    <div class="form-group col-md-2">
+                    <div class="form-group col-md-1">
                         <p class="text-muted m-2">Nº FACTURA</p>
                         <input type="text" class="form-control" id="id_numero_factura">
+                    </div>                    
+                    <div class="form-group col-md-2 ">
+                        <p class="text-muted">UNIDAD DE NEGOCIO</p>
+                        <select class="form-control" id="id_select_empresa">
+                            <option value="0">...</option>
+                            <option value="1">UNIMARK S,A</option>
+                            <option value="2">GUMAPHARMA</option>        
+                        </select>
                     </div>
                     <div class="form-group col-md-8 ">
                         <p class="text-muted m-2">Descripción / Código</p>
                         <select class="selectpicker col-sm-12 form-control " id="id_select_articulo" data-show-subtext="false" data-live-search="true" ></select>
-                    </div>
-                                        
+                    </div>                
                 </div>
                 
                 <div class="form-row mt-3 ">
@@ -117,7 +152,7 @@
                         <input type="text" class="input-fecha" id="id_fecha_orden">
                     </div>
                     
-                    <div class="form-group col-md-4 ">
+                    <div class="form-group col-md-2 ">
                         <p class="text-muted">LABORATORIO</p>
                         <select class="form-control" id="id_select_laboratorios">
                             <option>LAB 01</option>
@@ -132,6 +167,10 @@
                     <div class="form-group col-md-2 ">
                         <p class="text-muted m-2">PRECIO PUBLICO C$.</p>
                         <input type="number" onkeypress="if ( isNaN(this.value + String.fromCharCode(event.keyCode) )) return false;" id="id_precio_publico" class="form-control"  placeholder="C$ 00.00">
+                    </div>  
+                    <div class="form-group col-md-2 ">
+                        <p class="text-muted m-2">PRECIO INTITUCION C$.</p>
+                        <input type="number" onkeypress="if ( isNaN(this.value + String.fromCharCode(event.keyCode) )) return false;" id="id_precio_intitucion" class="form-control"  placeholder="C$ 00.00">
                     </div>                    
                 </div>
 
@@ -155,9 +194,7 @@
                     <div class="form-group col-md-2">
                         <p class="text-muted m-2">CONSIGNADO </p>
                         <select class="form-control" id="id_select_consignado">
-                            <option>SI</option>
-                            <option>NO</option>
-                            <option>SOLICITADO</option>
+                            
                         </select>
                     </div>
 
