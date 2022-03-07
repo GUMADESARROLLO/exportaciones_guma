@@ -40,10 +40,10 @@ class LoginController extends Controller
                 return 'home';
             break;
             case '3':
-                return 'costos';
+                return 'home';
             break;
             case '5':
-                return 'orden-produccion';
+                return 'home';
                 break;
             default:
                 return '/login';
