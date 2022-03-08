@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
-        <title>@yield('title','Producción - INNOVA')</title>
+        <title>@yield('title','IMPORTACIONES - GUMA')</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />

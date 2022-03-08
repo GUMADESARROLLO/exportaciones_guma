@@ -1,340 +1,597 @@
 <script type="text/javascript">
     var dtPedidos;
     $(document).ready(function() {
-        dtPedidos = $('#tblPedidos').DataTable({ // Costos por ORDEN
-            "ajax": {
-                "url": "pedido",
-                'dataSrc': '',
-            },
-            "order": [
-                [0, "desc"]
-            ],
-            "destroy": true,
-            "bPaginate": false,
-            "pagingType": "full",
-            "info": false,
-            "language": {
-                "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
-                "emptyTable": `<p class="text-center">N/A</p>`,
-                "search": "BUSCAR",
-                "oPaginate": {
-                    sNext: " Siguiente ",
-                    sPrevious: " Anterior ",
-                    sFirst: "Primero ",
-                    sLast: " Ultimo",
-                },
-            },
-            "columns": [{
-                    "title": "Seleccionar",
-                    "data": "id",
-                    "render": function(data, type, row) {
-                        if (data) {
-                            return '<div class="form-check">' +
-                                '<input class="form-check-input" name="id" type="checkbox" value="' + data + '" id="flexCheckChecked" >' +
-                                '</div>';
 
-                        } else {
-                            return '<div class="form-check">' +
-                                '<input class="form-check-input" name="id" type="checkbox" id="flexCheckChecked" disabled>' +
-                                '</div>';
-                        }
-                    }
-                }, {
-                    "title": "Pedido/Tránsito",
-                    "data": "tipo_export",
-                    "render": function(data, type, row) {
-                        if (data) {
-                            return data;
-                        } else {
-                            return '<select class="form-control m-0 p-0" name="tipo_export" id="tipo_export">' +
-                                '<option value = "PEDIDO"> PEDIDO </option>' +
-                                '<option value = "TRANSITO"> TRANSITO </option> </select>'
-                        }
-                    }
-
-                }, {
-                    "title": "NO. ORDEN",
-                    "data": "numOrden",
-                    "render": function(data, type, row) {
-                        if (data) {
-                            return data;
-                        } else {
-                            return '<input class="input-dt m-0 p-0" type="text" name="numOrden">'
-                        }
-                    }
-                },
-                {
-                    "title": "FECHA DE DESPACHO",
-                    "data": "fecha_despacho",
-                    "render": function(data, type, row) {
-                        if (data) {
-                            return data;
-                        } else {
-                            return '<input type="text" class="input-fecha-dos form-control m-0 p-0" id="" name="fecha_despacho">'
-                        }
-                    }
-                },
-                {
-                    "title": "FECHA DE ORD.COMPRA",
-                    "data": "fecha_orden",
-                    "render": function(data, type, row) {
-                        if (data) {
-                            return data;
-                        } else {
-                            return '<input type="text" class="input-fecha-dos form-control m-0 p-0" id="" name="fecha_orden">'
-                        }
-                    }
-                },
-                {
-                    "title": "CÓDIGO",
-                    "data": "codigo",
-                    "render": function(data, type, row) {
-                        if (data) {
-                            return data;
-                        } else {
-                            return '<input class="input-dt m-0 p-0" type="text" name="codigo">'
-                        }
-                    }
-                },
-                {
-                    "title": "DESCRIPCIÓN",
-                    "data": "descripcion",
-                    "render": function(data, type, row) {
-                        if (data) {
-                            return data;
-                        } else {
-                            return '<input class="input-dt m-0 p-0" type="text" name="descripcion">'
-                        }
-                    }
-                },
-                {
-                    "title": "LAB",
-                    "data": "lab",
-                    "render": function(data, type, row) {
-                        if (data) {
-                            return data;
-                        } else {
-                            return '<input class="input-dt m-0 p-0" type="text" name="lab">'
-                        }
-                    }
-                },
-                {
-                    "title": "CANT.",
-                    "data": "cantidad",
-                    "render": function(data, type, row) {
-                        if (data) {
-                            return data;
-                        } else {
-                            return '<input class="input-dt m-0 p-0" type="text" name="cantidad">'
-                        }
-                    }
-                },
-                {
-                    "title": "MIFIC",
-                    "data": "mific",
-                    "render": function(data, type, row) {
-                        if (data) {
-                            return data;
-                        } else {
-                            return '<select class="form-control m-0 p-0" name="mific" >' +
-                                '<option value = "SI"> SI </option>' +
-                                '<option value = "NO"> NO </option> </select>'
-                        }
-                    }
-                },
-                {
-                    "title": "PRECIO FARMACIA",
-                    "data": "precio_farm",
-                    "render": function(data, type, row) {
-                        if (data) {
-                            return data;
-                        } else {
-                            return '<input class="input-dt m-0 p-0" type="text" name="precio_farm">'
-                        }
-                    }
-                },
-                {
-                    "title": "PRECIO PUBLICO",
-                    "data": "precio_publ",
-                    "render": function(data, type, row) {
-                        if (data) {
-                            return data;
-                        } else {
-                            return '<input class="input-dt m-0 p-0" type="text" name="precio_publ">'
-                        }
-                    }
-
-                },
-                {
-                    "title": "REGENCIA NECESITA PERMISO",
-                    "data": "permiso_necesario",
-                    "render": function(data, type, row) {
-                        if (data) {
-                            return data;
-                        } else {
-                            return '<select class="form-control m-0 p-0" name="permiso_necesario" >' +
-                                '<option value = "SI" > SI </option>' +
-                                '<option value = "NO" > NO </option> </select>'
-                        }
-                    }
-                },
-                {
-                    "title": "CONSIGNADO",
-                    "data": "consignado",
-                    "render": function(data, type, row) {
-                        if (data) {
-                            return data;
-                        } else {
-                            return '<input class="input-dt m-0 p-0" type="text" name="consignado">'
-                        }
-                    }
-                },
-                {
-                    "title": "MINSA O PRIVADO",
-                    "data": "tipo",
-                    "render": function(data, type, row) {
-                        if (data) {
-                            return data;
-                        } else {
-                            return '<select class="form-control m-0 p-0" name="tipo">' +
-                                '<option value = "MINSA" > MINSA </option>' +
-                                '<option value = "PRIVADO" > PRIVADO </option> </select>'
-                        }
-                    }
-                },
-                {
-                    "title": "COMENTARIOS",
-                    "data": "comentarios",
-                    "render": function(data, type, row) {
-                        if (data) {
-                            return data;
-                        } else {
-                            return '<input class="input-dt m-0 p-0" type="text" name="comentarios">'
-                        }
-                    }
-                },
-                {
-                    "title": "EStADO",
-                    "data": "estado",
-                    "render": function(data, type, row) {
-                        if (data) {
-                            return '<span class = "badge badge-success" name="estado"> Activo </span>'
-                        } else {
-                            return '<span class = "badge badge-danger" name="estado"> Inactivo </span>'
-                        }
-                    }
-                },
-            ],
-            "columnDefs": [{
-                "targets": [0],
-                "className": "dt-center",
-            }, ]
-        });
-
-        $("#tblPedidos_filter").hide();
-        $("#tblPedidos_length").hide();
-        $('#cont_search').show();
         $('#InputBuscar').on('keyup', function() {
             var table = $('#tblPedidos').DataTable();
             table.search(this.value).draw();
         });
+
+        $("#id_filter_empresa,#id_filter_tipo").change(function() {
+            var table = $('#tblPedidos').DataTable();
+            table.search(this.value).draw();
+        });
+
+        $("#id_filter_row").change(function() {
+            var table = $('#tblPedidos').DataTable();
+            table.page.len(this.value).draw();
+        });
+
+        $('#tblPedidos').DataTable({
+            'ajax': {
+                "url": "pedido",
+                'dataSrc': '',
+            },
+            "destroy": true,
+            "info": false,
+            "lengthMenu": [
+                [7, -1],
+                [7, "Todo"]
+            ],
+            "language": {
+                "zeroRecords": "NO HAY COINCIDENCIAS",
+                "paginate": {
+                    "first": "Primera",
+                    "last": "Última ",
+                    "next": "Siguiente",
+                    "previous": "Anterior"
+                },
+                "lengthMenu": "MOSTRAR _MENU_",
+                "emptyTable": "REALICE UNA BUSQUEDA UTILIZANDO LOS FILTROS DE FECHA",
+                "search": "BUSCAR"
+            },
+            'columns': [{
+                    "title": "id",
+                    "data": "id"
+                },
+                {
+                    "title": "Nº RECIBO",
+                    "data": "numOrden"
+                },
+                {
+                    "title": "Nº FACTURA",
+                    "data": "numFactura"
+                },
+                {
+                    "title": "FECHA DE DESPACHO",
+                    "data": "fecha_despacho"
+                },
+                {
+                    "title": "FECHA DE ORDEN COMPRA",
+                    "data": "fecha_orden"
+                },
+                {
+                    "title": "ARTICULO",
+                    "data": "codigo"
+                },
+                {
+                    "title": "DESCRIPCION",
+                    "data": "descripcion"
+                },
+                {
+                    "title": "LABORATORIO",
+                    "data": "lab"
+                },
+                {
+                    "title": "CANTIDAD",
+                    "data": "cantidad",
+                    render: $.fn.dataTable.render.number(',', '.', 2, '')
+                },
+                {
+                    "title": "MIFIC",
+                    "data": "mific"
+                },
+                {
+                    "title": "PRECIO FARMACIA",
+                    "data": "precio_farm",
+                    render: $.fn.dataTable.render.number(',', '.', 2, 'C$ ')
+                },
+                {
+                    "title": "PRECIO PUBLICO",
+                    "data": "precio_publ",
+                    render: $.fn.dataTable.render.number(',', '.', 2, 'C$ ')
+                },
+                {
+                    "title": "PRECIO INST.",
+                    "data": "precio_inst",
+                    render: $.fn.dataTable.render.number(',', '.', 2, 'C$ ')
+                },
+                {
+                    "title": "REGENCIA NECESITA PERMISO",
+                    "data": "permiso_necesario"
+                },
+                {
+                    "title": "CONSIGNADO",
+                    "data": "consignado"
+                },
+                {
+                    "title": "TIPO",
+                    "data": "tipo"
+                },
+                {
+                    "title": "COMENTARIOS",
+                    "data": "comentarios"
+                },
+                {
+                    "title": "ESTADO",
+                    "data": "estado",
+                    "render": function(data, type, row, meta) {
+
+                        var Titulos = '';
+
+                        if (row.estado === 0) {
+                            Titulos = 'TRANSITO'
+                        } else if (row.estado === 1) {
+                            Titulos = 'PRODUCTO MINSA'
+                        } else {
+                            Titulos = 'PEDIDO'
+                        }
+
+                        return Titulos
+                    }
+                },
+                {
+                    "title": "ACCIONES",
+                    "data": "id",
+                    "render": function(data, type, row, meta) {
+                        return '<div class="row mr-3 ml-3">' +
+                            '<div class="col-3 d-flex justify-content-center"><i class="material-icons icon-blue" onclick="Mostrar(' + row.id + ')">visibility</i></div>' +
+                            '<div class="col-3 d-flex justify-content-center"><i class="material-icons" onclick="Editar(' + row.id + ')">edit</i></div>' +
+                            '<div class="col-3 d-flex justify-content-center"><i class="material-icons icon-red" onclick="Eliminar(' + row.id + ')">delete</i></div>' +
+                            '</div>'
+                    }
+                },
+                {
+                    "title": "UNIDAD",
+                    "data": "empresa",
+                    "render": function(data, type, row, meta) {
+
+                        var Titulos = '';
+
+                        if (row.estado === 0) {
+                            Titulos = ' '
+                        } else if (row.empresa === 1) {
+                            Titulos = 'UNIMARK S,A'
+                        } else {
+                            Titulos = 'GUMAPHARMA'
+                        }
+
+                        return Titulos
+                    }
+                },
+
+
+            ],
+            "columnDefs": [{
+                    "className": "dt-center",
+                    "targets": [1, 2, 3, 4, 7, 9, 12, 14, 16, 17]
+                },
+                {
+                    "className": "dt-right",
+                    "targets": [8, 10, 11]
+                },
+                {
+                    "width": "20%",
+                    "targets": [6]
+                },
+                {
+                    "width": "8%",
+                    "targets": [3, 4, 17]
+                },
+                {
+                    "visible": false,
+                    "searchable": false,
+                    "targets": [0, 19]
+                }
+            ],
+            "createdRow": function(row, data, dataIndex) {
+
+                if (data.estado === 0) {
+                    $(row).addClass('tbl_rows_transito');
+                } else if (data.estado === 1) {
+                    $(row).addClass('tbl_rows_producto_minsa');
+                } else if (data.estado === 2) {
+                    $(row).addClass('tbl_rows_pedido');
+                }
+
+            },
+            "footerCallback": function(row, data, start, end, display) {
+
+            },
+        });
+
+        $("#tblPedidos_length").hide();
+        $("#tblPedidos_filter").hide();
+
+
         inicializaControlFecha();
-        $('#tblPedidos > thead').addClass('bg-success text-white');
 
     });
 
-    //Añadir filas
-    $(document).on('click', '.add-row-dt-pedidos', function() {
-        var last_row_ = dtPedidos.row(":last").data();
-        dtPedidos.row.add([{}]).draw();
-        inicializaControlFecha();
+    function Mostrar(gPosition) {
+
+        LoadSelect();
+
+        var table = $('#tblPedidos').DataTable();
+        var row = table.rows().data();
+
+        const ArrayRows = Object.values(row);
+        var index = ArrayRows.findIndex(s => s.id == gPosition)
+
+        $('#opc-articulo').hide();
+        $('#cont-close').hide();
+        row = row[index]
+       
+        $('#mdlResumen').modal('show');
+       
+        $("#id_numero_recibo").val(row.numOrden)
+        $("#id_numero_factura").val(row.numFactura)
+        if (row.nuevo == 'N') {
+            $('#cont-articulo').show();
+            $('#id_select_articulo').selectpicker('val', row.codigo);
+            $('#cont_new_articulo').hide();
+            $('#cont-articulo').removeClass("col-md-7");
+            $('#cont-articulo').addClass("col-md-8");
+
+        } else if (row.nuevo == 'S') {
+            $('#id_select_articulo ').val(row.codigo);
+            $('#cont-articulo').hide();
+            $('#cont_new_articulo').show();
+            $('#id_new_articulo_cod').val(row.codigo);
+            $('#id_new_articulo_descripcion').val(row.descripcion);
+            $('#cont_new_articulo').removeClass("col-md-7");
+            $('#cont_new_articulo').addClass("col-md-8");
+
+        }
+
+        $("#id_fecha_despacho").val(row.fecha_despacho)
+        $("#id_fecha_orden").val(row.fecha_orden)
+        $("#id_select_laboratorios").val(row.lab).change();
+        $("#id_precio_farmacia").val(row.precio_farm)
+        $("#id_precio_publico").val(row.precio_publ);
+        $("#id_precio_intitucion").val(row.precio_inst);
+
+        $("#id_select_mific").val(row.mific).change();
+        $("#id_select_regencia").val(row.permiso_necesario).change();
+        $("#id_select_consignado").val(row.consignado).change();
+        $("#id_select_minsa_privado").val(row.tipo).change();
+        $("#id_cantidad").val(row.cantidad)
+        $("#id_select_estado").val(row.estado).change();
+        $("#id_coment").val(row.comentarios)
+        $("#id_select_empresa").val(row.empresa).change();
+        $("#id_add").hide();
+    }
+
+    function Editar(gPosition) {
+        $('#opc-articulo').hide();
+        $('#cont-close').hide();
+        LoadSelect();
+        var table = $('#tblPedidos').DataTable();
+        var row = table.rows().data();
+
+        const ArrayRows = Object.values(row);
+        var index = ArrayRows.findIndex(s => s.id == gPosition)
+
+        row = row[index]
+
+        $("#id_row").text(row.id)
+
+        $('#mdlResumen').modal('show');
+
+        $("#id_numero_recibo").val(row.numOrden)
+        $("#id_numero_factura").val(row.numFactura)
+        //$('#id_select_articulo').selectpicker('val', row.codigo);
+        $("#id_fecha_despacho").val(row.fecha_despacho)
+        $("#id_fecha_orden").val(row.fecha_orden)
+        $("#id_select_laboratorios").val(row.lab).change();
+        $("#id_precio_farmacia").val(row.precio_farm)
+        $("#id_precio_publico").val(row.precio_publ)
+        $("#id_precio_intitucion").val(row.precio_inst);
+
+        $("#id_select_mific").val(row.mific).change();
+        $("#id_select_regencia").val(row.permiso_necesario).change();
+        $("#id_select_consignado").val(row.consignado).change();
+        $("#id_select_minsa_privado").val(row.tipo).change();
+        $("#id_cantidad").val(row.cantidad)
+        $("#id_select_estado").val(row.estado).change();
+        $("#id_coment").val(row.comentarios)
+        $("#id_select_empresa").val(row.empresa).change();
+
+        if (row.nuevo == 'N') {
+            $('#cont-articulo').show();
+            $('#id_select_articulo').selectpicker('val', row.codigo);
+            $('#cont_new_articulo').hide();
+            $('#cont-articulo').removeClass("col-md-7");
+            $('#cont-articulo').addClass("col-md-8");
+        } else if (row.nuevo == 'S') {
+            $('#id_select_articulo ').val(row.codigo);
+            $('#cont-articulo').hide();
+            $('#cont_new_articulo').show();
+            $('#id_new_articulo_cod').val(row.codigo);
+            $('#id_new_articulo_descripcion').val(row.descripcion);
+            $('#cont_new_articulo').removeClass("col-md-7");
+            $('#cont_new_articulo').addClass("col-md-8");
+        }
+
+
+        $("#id_add").show();
+    }
+
+    function Eliminar(id) {
+        $.ajax({
+            url: 'cambiar_estado',
+            data: {
+                data: {
+                    id: id
+                }
+            },
+            type: 'post',
+            async: true,
+            success: function(response) {
+                //console.log('Exito en guardar quimicos');
+                //mensaje(response.responseText, 'success');
+            },
+            error: function(response) {
+                //console.log("error en ajax de Quimicos");
+                //mensaje(response.responseText, 'error');
+            }
+        }).done(function(data) {
+            location.reload();
+        });
+    }
+
+    function LoadSelect() {
+        Articulos = '';
+        Laboratorios = '';
+        Consignado = '';
+
+        $.ajax({
+            url: 'articulos_umk',
+            type: "GET",
+            dataType: "json",
+            async: false,
+            success: function(datos) {
+                $.each(datos, function(i, x) {
+                    Articulos += '<option value="' + x['ARTICULO'] + '" >' + x['DESCRIPCION'] + ' - [' + x['ARTICULO'] + ']</option>'
+                });
+
+                $("#id_select_articulo").empty().append(Articulos).selectpicker('refresh');
+
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+
+            },
+            complete: function(jqXHR, status) {}
+        });
+        Articulos = '';
+        $.ajax({
+            url: 'articulos_gp',
+            type: "GET",
+            dataType: "json",
+            async: false,
+            success: function(datos) {
+                $.each(datos, function(i, x) {
+                    Articulos += '<option value="' + x['ARTICULO'] + '" >' + x['DESCRIPCION'] + ' - [' + x['ARTICULO'] + ']</option>'
+                });
+
+                $("#id_select_articulo").empty().append(Articulos).selectpicker('refresh');
+
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+
+            },
+            complete: function(jqXHR, status) {}
+        });
+
+        $.ajax({
+            url: 'laboratorios',
+            type: "GET",
+            dataType: "json",
+            async: false,
+            success: function(datos) {
+                $.each(datos, function(i, x) {
+                    Laboratorios += '<option value="' + x['nombre_lab'] + '" >' + x['nombre_lab'] + '</option>'
+                });
+
+                $("#id_select_laboratorios").empty().append(Laboratorios);
+
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+
+            },
+            complete: function(jqXHR, status) {
+                //console.log(jqXHR);
+                //alert("complete\njqXHR="+jqXHR+"\nstatus="+status);
+            }
+        });
+
+        $.ajax({
+            url: 'consignado',
+            type: "GET",
+            dataType: "json",
+            async: false,
+            success: function(datos) {
+                $.each(datos, function(i, x) {
+                    Consignado += '<option value="' + x['id'] + '" >' + x['Nombre'] + '</option>'
+                });
+
+                $("#id_select_consignado").empty().append(Consignado);
+
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+
+            },
+            complete: function(jqXHR, status) {
+                //console.log(jqXHR);
+                //alert("complete\njqXHR="+jqXHR+"\nstatus="+status);
+            }
+        });
+    }
+
+    $('#btnAdd').on('click', function() {
+        clearFields();
+        $('#mdlResumen').modal('show');
+        $("#id_add").show();
+
+        $("#id_row").text("New")
+        LoadSelect();
+
     });
 
-    //Guardar
-    $('#btn-Guardar').on('click', function() {
-        let i = 0;
+    $('#id_add').on('click', function() {
+
+        var nuevo = 'N';
         var array = [];
-        var data = dtPedidos.$(':input,select').serializeArray();
-        let tipo_export, numOrden, fecha_despacho, quimico, codigo, descripcion, lab,
-            cantidad, mific, precio_farm, precio_publ, permiso_necesario, consignado, tipo, comentarios
-        // console.log(data);
-        $.each(data, function(ind, elem) {
-            dtPedidos.rows().eq(0).each(function(index) {
-                row = dtPedidos.row(index);
-                data = row.data();
-                id = data['id'];
-                /*if (elem.name === 'tipo_export') {
-                    tipo_export = elem.value;
-                } else if (elem.name === 'numOrden') {
-                    numOrden = elem.value;
-                } else if (elem.name === 'fecha_despacho') {
-                    fecha_despacho = elem.value;
-                } else if (elem.name === 'fecha_orden') {
-                    fecha_orden = elem.value;
-                } else if (elem.name === 'codigo') {
-                    codigo = elem.value;
-                } else if (elem.name === 'descripcion') {
-                    descripcion = elem.value;
-                } else if (elem.name === 'lab') {
-                    lab = elem.value;
-                } else if (elem.name === 'cantidad') {
-                    cantidad = elem.value;
-                } else if (elem.name === 'mific') {
-                    mific = elem.value;
-                } else if (elem.name === 'precio_farm') {
-                    precio_farm = elem.value;
-                } else if (elem.name === 'precio_publ') {
-                    precio_publ = elem.value;
-                } else if (elem.name === 'permiso_necesario') {
-                    permiso_necesario = elem.value;
-                } else if (elem.name === 'consignado') {
-                    consignado = elem.value;
-                } else if (elem.name === 'tipo') {
-                    tipo = elem.value;
-                } else if (elem.name === 'comentarios') {
-                    comentarios = elem.value;
-                }*/     
 
-                array[i] = {
-                    tipo_export: tipo_export, //1
-                    orden: numOrden, //2
-                    fecha_despacho: fecha_despacho, //3
-                    fecha_orden: quimico, //4
-                    codigo: codigo, //5
-                    descripcion: descripcion, //6
-                    lab: lab, //7
-                    cantidad: cantidad, //8
-                    mific: mific, //9
-                    precio_farm: precio_farm, //10 
-                    precio_farm: precio_publ, //11
-                    permiso_necesario: permiso_necesario, //12
-                    consignado: consignado, //13
-                    tipo: tipo, //14
-                    comentarios: comentarios //15
-                };
+        var id = $("#id_row").text();
+        var nRecibo = $("#id_numero_recibo").val();
+        var nFactura = $("#id_numero_factura").val()
+        var Empresa = $("#id_select_empresa").val()
+        var Articulo = $("#id_select_articulo").val()
+        var Descripcion = $('#id_select_articulo option:selected').text()
+
+        var Articulo_new = $('#id_new_articulo_cod').val();
+        var Descripcion_new = $('#id_new_articulo_descripcion').val();
+
+        var fecha_despacho = $("#id_fecha_despacho").val()
+        var fecha_orden = $("#id_fecha_orden").val()
+        var Laboratorio = $('#id_select_laboratorios option:selected').text()
+
+        var precio_farmacia = $("#id_precio_farmacia").val()
+        var precio_publico = $("#id_precio_publico").val()
+        var precio_institu = $("#id_precio_intitucion").val()
+
+        var mific = $('#id_select_mific option:selected').text()
+        var regencia_permiso = $('#id_select_regencia option:selected').text()
+        var consignado = $('#id_select_consignado option:selected').text()
+        var minsa_privado = $('#id_select_minsa_privado option:selected').text()
+
+        var cantidad = $('#id_cantidad').val()
+        var estado = $('#id_select_estado').val()
+        var comentarios = $('#id_coment').val()
+        var ArticuloN = '';
+        var DescripcionN = '';
+
+        if (Articulo_new != '') {
+            Articulo = Articulo_new;
+            nuevo = 'S';
+        }
+        if (Descripcion_new != '') {
+            Descripcion = Descripcion_new;
+            nuevo = 'S';
+        }
+       
+        var Titulo = '';
+        var Ruta = '';
+        if (nRecibo === '') {
+            Titulo = 'nRecibo'
+        } else if (nFactura === '') {
+            Titulo = 'nFactura'
+        } else if (Empresa === '') {
+            Titulo = 'Empresa'
+        } else if (Descripcion === '') {
+            Titulo = 'Descripcion'
+        } else if (fecha_despacho === '') {
+            Titulo = 'fecha_despacho'
+        } else if (fecha_orden === '') {
+            Titulo = 'fecha_orden'
+        } else if (Laboratorio === '') {
+            Titulo = 'Laboratorio'
+        } else if (precio_farmacia === '') {
+            Titulo = 'precio_farmacia'
+        } else if (precio_publico === '') {
+            Titulo = 'precio_publico'
+        } else if (precio_institu === '') {
+            Titulo = 'precio_institucion'
+        } else if (mific === '') {
+            Titulo = 'mific'
+        } else if (regencia_permiso === '') {
+            Titulo = 'regencia_permiso'
+        } else if (consignado === '') {
+            Titulo = 'consignado'
+        } else if (minsa_privado === '') {
+            Titulo = 'minsa_privado'
+        } else if (cantidad === '') {
+            Titulo = 'cantidad'
+        } else if (estado === '') {
+            Titulo = 'Recibo'
+        } else if (comentarios === '') {
+            Titulo = 'comentarios'
+        } else {
+
+            if (id === 'New') {
+                Ruta = 'guardar_pedido'
+                id = '0';
+            } else {
+                Ruta = 'editar_pedido'
+            }
+            array[0] = {
+                id: id,
+                orden: nRecibo,
+                factura: nFactura,
+                codigo: Articulo,
+                empresa: Empresa,
+                descripcion: Descripcion,
+                fecha_despacho: fecha_despacho,
+                fecha_orden: fecha_orden,
+                lab: Laboratorio,
+                precio_farm: precio_farmacia,
+                precio_public: precio_publico,
+                precio_institu: precio_institu,
+                mific: mific,
+                permiso_necesario: regencia_permiso,
+                consignado: consignado,
+                tipo: minsa_privado,
+                cantidad: cantidad,
+                estado: estado,
+                comentarios: comentarios,
+                nuevo: nuevo
+            };
+            $.ajax({
+                url: Ruta,
+                data: {
+                    data: array
+                },
+                type: 'post',
+                async: true,
+                success: function(response) {
+                    //console.log('Exito en guardar quimicos');
+                    //mensaje(response.responseText, 'success');
+                },
+                error: function(response) {
+                    //console.log("error en ajax de Quimicos");
+                    //mensaje(response.responseText, 'error');
+                }
+            }).done(function(data) {
+                location.reload();
             });
-           // +i++
-        });
+        }
 
-        i++;
-        console.log(array);
-
-        dtPedidos.rows().eq(0).each(function(index) {
-            var row = dtPedidos.row(index);
-            var data_tabla = row.data();
-            var pos = data[0];
-            var id = pos;
-
-            //   console.log(data_tabla);
-        });
+    });
 
 
+    $('#btn_Add_Product').on('click', function() {
+        $('#cont-articulo').hide();
+        $('#opc-articulo').hide();
+        $('#cont-close').show();
+        $('#cont_new_articulo').show();
+    });
+
+    $('#btn_close').on('click', function() {
+        $('#cont-close').hide();
+        $('#cont_new_articulo').hide();
+
+        $('#opc-articulo').show();
+        $('#cont-articulo').show();
+
+        $('#id_new_articulo_cod').val('');
+        $('#id_new_articulo_descripcion').val('');
     });
 
 
     /********INICIALIZANDO CONTROL FECHA - START********/
     function inicializaControlFecha() {
-        $('input[class="input-fecha-dos form-control m-0 p-0"]').daterangepicker({
+        $('input[class="input-fecha"]').daterangepicker({
             "locale": {
                 "format": "YYYY-MM-DD",
                 "separator": " - ",
@@ -371,5 +628,41 @@
             singleDatePicker: true,
             showDropdowns: true
         });
+    }
+
+    function clearFields() {
+        $("#id_numero_recibo").val('')
+        $("#id_numero_factura").val('')
+        $('#id_select_articulo').val('');
+        $("#id_fecha_despacho").val('')
+        $("#id_fecha_orden").val('')
+        $("#id_select_laboratorios").val('');
+        $("#id_precio_farmacia").val('')
+        $("#id_precio_publico").val('')
+        $("#id_precio_intitucion").val('');
+        $("#id_select_mific").val('');
+        $("#id_select_regencia").val('')
+        $("#id_select_consignado").val('');
+        $("#id_select_minsa_privado").val('')
+        $("#id_cantidad").val('')
+        $("#id_select_estado").val('');
+        $("#id_coment").val('')
+        $("#id_select_empresa").val('');
+        $('#id_new_articulo_cod').val('');
+        $('#id_new_articulo_descripcion').val('');
+        //Cargar articulos
+       // $('#cont-articulo').toggleClass("col-md-8 col-md-7");
+        $('#cont-articulo').show();
+        $('#opc-articulo').show();
+        $('#cont-articulo').removeClass("col-md-8");
+        $('#cont-articulo').addClass("col-md-7");
+        // Nuevo
+        $('#cont_new_articulo').hide();
+        $('#cont-close').hide();
+        $('#cont_new_articulo').removeClass("col-md-8");
+        $('#cont_new_articulo').addClass("col-md-7");
+       // $('#cont_new_articulo').toggleClass("col-md-8 col-md-7");
+
+
     }
 </script>
