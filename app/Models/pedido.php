@@ -29,7 +29,8 @@ class pedido extends Model
         'tipo', 
         'comentarios', 
         'estado',
-        'empresa'
+        'empresa',
+        'nuevo'
     ];
     public $timestamps = false;
 

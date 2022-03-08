@@ -77,7 +77,7 @@ class HomeController extends Controller
                     $pedido->numFactura         =   $dataP['factura'];
                     $pedido->fecha_despacho     =   $dataP['fecha_despacho'];
                     $pedido->fecha_orden        =   $dataP['fecha_orden'];
-                    $pedido->codigo             =   $dataP['codigo'];
+                    $pedido->codigo             =   $dataP['codigo'] ? '': '';
                     $pedido->empresa            =   $dataP['empresa'];
                     $pedido->descripcion        =   $dataP['descripcion']  ;
                     $pedido->lab                =   $dataP['lab'];
@@ -91,7 +91,8 @@ class HomeController extends Controller
                     $pedido->tipo               =   $dataP['tipo'];
                     $pedido->comentarios        =   $dataP['comentarios'];
                     $pedido->estado             =   $dataP['estado'];                
-                    $pedido->activo             =   "S";                
+                    $pedido->activo             =   "S";      
+                    $pedido->nuevo              = $dataP['nuevo'];          
                     $pedido->save();             
                     
                 };                
@@ -131,6 +132,7 @@ class HomeController extends Controller
                         'tipo' => $dataP['tipo'],
                         'comentarios' => $dataP['comentarios'],
                         'estado' => $dataP['estado'],
+                        'nuevo' => $dataP['nuevo']
                         
                     ]);
                     
