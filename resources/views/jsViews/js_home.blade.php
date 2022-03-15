@@ -363,7 +363,7 @@
             },
             complete: function(jqXHR, status) {}
         });
-        Articulos = '';
+        //Articulos = '';
         $.ajax({
             url: 'articulos_gp',
             type: "GET",
@@ -382,7 +382,7 @@
             },
             complete: function(jqXHR, status) {}
         });
-
+        
         $.ajax({
             url: 'laboratorios',
             type: "GET",
@@ -447,6 +447,7 @@
         var nRecibo = $("#id_numero_recibo").val();
         var nFactura = $("#id_numero_factura").val()
         var Empresa = $("#id_select_empresa").val()
+
         var Articulo = $("#id_select_articulo").val()
         var Descripcion = $('#id_select_articulo option:selected').text()
 
@@ -463,7 +464,7 @@
 
         var mific = $('#id_select_mific option:selected').text()
         var regencia_permiso = $('#id_select_regencia option:selected').text()
-        var consignado = $('#id_select_consignado option:selected').text()
+        var consignado = $('#id_select_consignado option:selected').val()
         var minsa_privado = $('#id_select_minsa_privado option:selected').text()
 
         var cantidad = $('#id_cantidad').val()
@@ -547,6 +548,9 @@
                 comentarios: comentarios,
                 nuevo: nuevo
             };
+
+            console.log(array)
+           
             $.ajax({
                 url: Ruta,
                 data: {
@@ -566,6 +570,8 @@
                 location.reload();
             });
         }
+
+        console.log(Titulo);
 
     });
 

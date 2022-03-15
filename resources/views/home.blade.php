@@ -141,12 +141,15 @@
                             <option value="2">GUMAPHARMA</option>
                         </select>
                     </div>
-                    <div class="form-group col-md-7" id="cont-articulo">
+
+                    <div class="form-group col-md-7 " id="cont-articulo">
                         <p class="text-muted m-2">Descripción / Código</p>
-                        <select class="selectpicker col-sm-12 form-control " id="id_select_articulo" data-show-subtext="false" data-live-search="true"></select>
+                        <select class="selectpicker col-sm-12 form-control " id="id_select_articulo" data-show-subtext="false" data-live-search="true" data-size="5"></select>
                     </div>
+                    
                     <div class="form-group col-md-7" id="cont_new_articulo" style="display: none;">
-                        <div class="form-row">
+
+                        <div class="row">
                             <div class="form-group col-md-4">
                                 <p class="text-muted m-2">Codigo</p>
                                 <input class="form-control" type="text" id="id_new_articulo_cod">
@@ -156,13 +159,21 @@
                                 <input class="form-control" type="text" id="id_new_articulo_descripcion">
                             </div>
                         </div>
+
+                        
+                        
                     </div>
-                    <div class="input-group col-md-1 mt-4 mb-4 p-0  justify-content-center" id="opc-articulo">
-                        <button class="btn mt-2 btn-success p-0" id="btn_Add_Product"><i class="material-icons text-white ml-2">add</i></i></button>
+
+                    <div class="form-group col-md-1" id="opc-articulo" >       
+                        <p class="text-muted m-2">&nbsp;</p>                 
+                        <button type="button" id="btn_Add_Product" class="btn btn-outline-info">+</button>
                     </div>
-                    <div class="input-group col-md-1 mt-4 mb-4 p-0  justify-content-center" id="cont-close" style="display: none;">
-                        <button class="btn mt-2 p-0 mb-2 btn-danger" id="btn_close"><i class="material-icons text-white ml-2">close</i></i></button>
+
+                    <div class="form-group col-md-1 " id="cont-close" style="display: none;">
+                        <p class="text-muted m-2">&nbsp;</p>                 
+                        <button type="button" id="btn_close"class="btn btn-outline-danger">x</button>
                     </div>
+                    
                 </div>
 
                 <div class="form-row mt-3 ">
