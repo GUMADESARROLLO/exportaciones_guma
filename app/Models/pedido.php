@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 class pedido extends Model
 {
 
-    protected $table = 'pedido';
+    protected $table = 'view_master_pedidos';
     protected $primaryKey = 'id';
     protected $fillable = [
         'id', 
@@ -26,6 +26,7 @@ class pedido extends Model
         'precio_inst', 
         'permiso_necesario', 
         'consignado', 
+        'nombre',
         'tipo', 
         'comentarios', 
         'estado',
