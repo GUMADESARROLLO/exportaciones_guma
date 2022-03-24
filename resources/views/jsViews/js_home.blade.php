@@ -1,7 +1,9 @@
 <script type="text/javascript">
     var dtPedidos;
     $(document).ready(function() {
+        
 
+        
         $('#InputBuscar').on('keyup', function() {
             var table = $('#tblPedidos').DataTable();
             table.search(this.value).draw();
@@ -53,13 +55,14 @@
                     "data": "numFactura"
                 },
                 {
-                    "title": "FECHA DE DESPACHO",
-                    "data": "fecha_despacho"
-                },
-                {
                     "title": "FECHA DE ORDEN COMPRA",
                     "data": "fecha_orden"
                 },
+                {
+                    "title": "FECHA DE DESPACHO",
+                    "data": "fecha_despacho"
+                },
+                
                 {
                     "title": "ARTICULO",
                     "data": "codigo"
@@ -105,6 +108,10 @@
                     "data": "consignado"
                 },
                 {
+                    "title": "nConsignado",
+                    "data": "Nombre"
+                },  
+                {
                     "title": "TIPO",
                     "data": "tipo"
                 },
@@ -135,7 +142,6 @@
                     "data": "id",
                     "render": function(data, type, row, meta) {
                         return '<div class="row mr-3 ml-3">' +
-                            '<div class="col-3 d-flex justify-content-center"><i class="material-icons icon-blue" onclick="Mostrar(' + row.id + ')">visibility</i></div>' +
                             '<div class="col-3 d-flex justify-content-center"><i class="material-icons" onclick="Editar(' + row.id + ')">edit</i></div>' +
                             '<div class="col-3 d-flex justify-content-center"><i class="material-icons icon-red" onclick="Eliminar(' + row.id + ')">delete</i></div>' +
                             '</div>'
@@ -181,7 +187,7 @@
                 {
                     "visible": false,
                     "searchable": false,
-                    "targets": [0, 19]
+                    "targets": [0,14,20]
                 }
             ],
             "createdRow": function(row, data, dataIndex) {
