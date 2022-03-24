@@ -108,7 +108,7 @@
                     "data": "consignado"
                 },
                 {
-                    "title": "nConsignado",
+                    "title": "Consignado",
                     "data": "Nombre"
                 },  
                 {
