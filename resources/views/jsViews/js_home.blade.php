@@ -1,5 +1,5 @@
 <script type="text/javascript">
-    var dtPedidos;
+   
     $(document).ready(function() {
         
 
@@ -17,6 +17,54 @@
         $("#id_filter_row").change(function() {
             var table = $('#tblPedidos').DataTable();
             table.page.len(this.value).draw();
+        });
+        /*function Search_filter_Table(){
+            var table = $('#example').DataTable();
+            
+            table
+                .columns( '.status' )
+                .search( 'Important' )
+                .draw();
+        }*/
+
+        $(".OnClickSearch").on('click', function(){
+            var table = $('#tblPedidos').DataTable();
+            var id = $(this).children().first().attr('id');
+
+            
+            
+
+            if(id ==='id_si_mific'){
+                table.columns().search( '' ).columns( 9 ).search( 'SI' ).draw();
+
+            } if(id ==='id_no_mific'){
+                table.columns().search( '' ).columns( 9 ).search( 'NO' ).draw();
+            }
+
+            if(id ==='id_si_refencia'){
+                table.columns().search( '' ).columns( 10 ).search( 'SI' ).draw();
+
+            } if(id ==='id_no_refencia'){
+                table.columns().search( '' ).columns( 10 ).search( 'NO' ).draw();
+            }
+
+            if(id ==='id_tipo_misa'){
+                table.columns().search( '' ).columns( 13 ).search( 'PRIVADO' ).draw();
+
+            } if(id ==='id_tipo_misa'){
+                table.columns().search( '' ).columns( 13 ).search( 'MINSA' ).draw();
+            }
+
+            if(id ==='id_estado_01'){
+                table.columns().search( '' ).columns( 15 ).search( 'TRANSITO' ).draw();
+            } if(id ==='id_estado_02'){
+                table.columns().search( '' ).columns( 15 ).search( 'PRODUCTO MINSA' ).draw();
+            }if(id ==='id_estado_03'){
+                table.columns().search( '' ).columns( 15 ).search( 'PEDIDO' ).draw();
+            }
+
+            
+
         });
 
         $('#tblPedidos').DataTable({
@@ -84,21 +132,7 @@
                     "title": "MIFIC",
                     "data": "mific"
                 },
-                {
-                    "title": "PRECIO FARMACIA",
-                    "data": "precio_farm",
-                    render: $.fn.dataTable.render.number(',', '.', 2, 'C$ ')
-                },
-                {
-                    "title": "PRECIO PUBLICO",
-                    "data": "precio_publ",
-                    render: $.fn.dataTable.render.number(',', '.', 2, 'C$ ')
-                },
-                {
-                    "title": "PRECIO INST.",
-                    "data": "precio_inst",
-                    render: $.fn.dataTable.render.number(',', '.', 2, 'C$ ')
-                },
+               
                 {
                     "title": "REGENCIA NECESITA PERMISO",
                     "data": "permiso_necesario"
@@ -141,10 +175,10 @@
                     "title": "ACCIONES",
                     "data": "id",
                     "render": function(data, type, row, meta) {
-                        return '<div class="row mr-3 ml-3">' +
-                            '<div class="col-3 d-flex justify-content-center"><i class="material-icons" onclick="Editar(' + row.id + ')">edit</i></div>' +
-                            '<div class="col-3 d-flex justify-content-center"><i class="material-icons icon-red" onclick="Eliminar(' + row.id + ')">delete</i></div>' +
-                            '</div>'
+                        return '' +
+                            '<i class="material-icons" onclick="Editar(' + row.id + ')">edit</i>' +
+                            '<i class="material-icons icon-red" onclick="Eliminar(' + row.id + ')">delete</i>' +
+                            ''
                     }
                 },
                 {
@@ -170,27 +204,28 @@
             ],
             "columnDefs": [{
                     "className": "dt-center",
-                    "targets": [1, 2, 3, 4, 7, 9, 12, 14, 16, 17]
+                    "targets": []
                 },
                 {
                     "className": "dt-right",
-                    "targets": [8, 10, 11]
+                    "targets": []
                 },
                 {
-                    "width": "20%",
-                    "targets": [6]
+                    "width": "50%",
+                    "targets": []
                 },
                 {
                     "width": "8%",
-                    "targets": [3, 4, 17]
+                    "targets": []
                 },
                 {
                     "visible": false,
-                    "searchable": false,
-                    "targets": [0,14,20]
+                    "targets": [],
+                    "targets": [0,7,9,10,11,13,14,15,17]
                 }
             ],
             "createdRow": function(row, data, dataIndex) {
+                
 
                 if (data.estado === 0) {
                     $(row).addClass('tbl_rows_transito');
@@ -199,9 +234,71 @@
                 } else if (data.estado === 2) {
                     $(row).addClass('tbl_rows_pedido');
                 }
+                
 
             },
             "footerCallback": function(row, data, start, end, display) {
+                
+                var mificSI     = [[],[],[]];
+                var Refencia    = [[],[],[]];
+                var Tipo        = [[],[],[]];                
+                var CountEstados = [[],[],[]];
+
+                data.forEach(function(data, index) {
+
+                    if(data.mific ==="SI"){
+                        mificSI[0].push(data.mific)                    
+                    } else if(data.mific ==='NO'){
+                        mificSI[1].push(data.mific)
+                    }else if(data.mific ==='SOLICITADO'){
+                        mificSI[2].push(data.mific)
+                    }
+
+                     if(data.permiso_necesario ==="SI"){
+                        Refencia[0].push(data.permiso_necesario)                    
+                    } else if(data.permiso_necesario ==='NO'){
+                        Refencia[1].push(data.permiso_necesario)
+                    }
+
+                    if(data.permiso_necesario ==="SI"){
+                        Refencia[0].push(data.permiso_necesario)                    
+                    } else if(data.permiso_necesario ==='NO'){
+                        Refencia[1].push(data.permiso_necesario)
+                    }
+
+                    if(data.tipo ==="PRIVADO"){
+                        Tipo[0].push(data.tipo)                    
+                    } else if(data.tipo ==='MINSA'){
+                        Tipo[1].push(data.tipo)
+                    }
+
+                    if (data.estado === 0) {
+                        CountEstados[0].push(data.estado)                    
+                    } else if (data.estado === 1) {
+                        CountEstados[1].push(data.estado)                    
+                    } else if (data.estado === 2) {
+                        CountEstados[2].push(data.estado)                    
+                    }
+
+
+                });
+
+                $("#id_si_mific").html(mificSI[0].length)
+                $("#id_no_mific").html(mificSI[1].length)
+
+                $("#id_si_refencia").html(Refencia[0].length)
+                $("#id_no_refencia").html(Refencia[1].length)
+
+                $("#id_tipo_privado").html(Tipo[0].length)
+                $("#id_tipo_misa").html(Tipo[1].length)
+
+                $("#id_estado_01").html(CountEstados[0].length)
+                $("#id_estado_02").html(CountEstados[1].length)
+                $("#id_estado_03").html(CountEstados[2].length)
+
+
+
+
 
             },
         });
@@ -212,8 +309,10 @@
 
         inicializaControlFecha();
 
-    });
+    
 
+    });
+    
     function Mostrar(gPosition) {
 
         LoadSelect();
