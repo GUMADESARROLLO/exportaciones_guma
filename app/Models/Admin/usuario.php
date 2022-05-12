@@ -4,19 +4,23 @@ namespace App\Models\Admin;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Admin\Rol;
-use App\Models\Admin\usuario_rol;
+use App\Models\usuario_rol;
 
-class usuario extends Model
+class Usuario extends Model
 {
     protected $table = "users";
-    protected $fillable = ['nombres', 'apellidos', 'username', 'password', 'fecha_nacimiento', 'image', 'estado', 'id_grupo'];
+    protected $fillable = ['nombre', 'apellido', 'username',
+                            'email', 'password', 'estado', 'image'];
+    public    $timestamp = true;
 
-    public function roles() {
+    public function roles()
+    {
     	return $this->belongsToMany(Rol::class, 'usuario_rol');
     }
 
-    public static function usuarioByRole() {
-        $usuario = new usuario();
+    public static function usuarioByRole()
+    {
+        $usuario = new Usuario();
         return $usuario->whereHas('roles', function ($query) {
             $query->where('rol_id', 5);
         })->get()
