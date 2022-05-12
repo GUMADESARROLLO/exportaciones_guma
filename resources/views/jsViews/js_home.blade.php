@@ -1,7 +1,9 @@
 <script type="text/javascript">
     var dtPedidos;
     $(document).ready(function() {
+        
 
+        
         $('#InputBuscar').on('keyup', function() {
             var table = $('#tblPedidos').DataTable();
             table.search(this.value).draw();
@@ -53,13 +55,14 @@
                     "data": "numFactura"
                 },
                 {
-                    "title": "FECHA DE DESPACHO",
-                    "data": "fecha_despacho"
-                },
-                {
                     "title": "FECHA DE ORDEN COMPRA",
                     "data": "fecha_orden"
                 },
+                {
+                    "title": "FECHA DE DESPACHO",
+                    "data": "fecha_despacho"
+                },
+                
                 {
                     "title": "ARTICULO",
                     "data": "codigo"
@@ -105,6 +108,10 @@
                     "data": "consignado"
                 },
                 {
+                    "title": "Consignado",
+                    "data": "Nombre"
+                },  
+                {
                     "title": "TIPO",
                     "data": "tipo"
                 },
@@ -135,7 +142,6 @@
                     "data": "id",
                     "render": function(data, type, row, meta) {
                         return '<div class="row mr-3 ml-3">' +
-                            '<div class="col-3 d-flex justify-content-center"><i class="material-icons icon-blue" onclick="Mostrar(' + row.id + ')">visibility</i></div>' +
                             '<div class="col-3 d-flex justify-content-center"><i class="material-icons" onclick="Editar(' + row.id + ')">edit</i></div>' +
                             '<div class="col-3 d-flex justify-content-center"><i class="material-icons icon-red" onclick="Eliminar(' + row.id + ')">delete</i></div>' +
                             '</div>'
@@ -181,7 +187,7 @@
                 {
                     "visible": false,
                     "searchable": false,
-                    "targets": [0, 19]
+                    "targets": [0,14,20]
                 }
             ],
             "createdRow": function(row, data, dataIndex) {
@@ -363,7 +369,7 @@
             },
             complete: function(jqXHR, status) {}
         });
-        Articulos = '';
+        //Articulos = '';
         $.ajax({
             url: 'articulos_gp',
             type: "GET",
@@ -382,7 +388,7 @@
             },
             complete: function(jqXHR, status) {}
         });
-
+        
         $.ajax({
             url: 'laboratorios',
             type: "GET",
@@ -447,6 +453,7 @@
         var nRecibo = $("#id_numero_recibo").val();
         var nFactura = $("#id_numero_factura").val()
         var Empresa = $("#id_select_empresa").val()
+
         var Articulo = $("#id_select_articulo").val()
         var Descripcion = $('#id_select_articulo option:selected').text()
 
@@ -463,7 +470,7 @@
 
         var mific = $('#id_select_mific option:selected').text()
         var regencia_permiso = $('#id_select_regencia option:selected').text()
-        var consignado = $('#id_select_consignado option:selected').text()
+        var consignado = $('#id_select_consignado option:selected').val()
         var minsa_privado = $('#id_select_minsa_privado option:selected').text()
 
         var cantidad = $('#id_cantidad').val()
@@ -547,6 +554,9 @@
                 comentarios: comentarios,
                 nuevo: nuevo
             };
+
+            console.log(array)
+           
             $.ajax({
                 url: Ruta,
                 data: {
@@ -566,6 +576,8 @@
                 location.reload();
             });
         }
+
+        console.log(Titulo);
 
     });
 
