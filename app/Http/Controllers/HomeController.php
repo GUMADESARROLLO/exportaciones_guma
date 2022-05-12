@@ -5,13 +5,17 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models;
 use App\Models\pedido;
+use App\Models\Notification;
 use App\Models\ArticulosUMK;
 use App\Models\ArticulosGP;
 use App\Models\Laboratorios;
 use App\Models\Consignados;
+//use App\Models\Notification as ModelsNotification;
 use App\Traits\ModelScopes;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Exception;
+//use Illuminate\Notifications\Notification;
 
 class HomeController extends Controller
 {
@@ -64,15 +68,15 @@ class HomeController extends Controller
     }
     public function guardar(Request $request)
     {
-
-        try {
-            DB::transaction(function () use ($request) {
+        try
+        {
+            $message = DB::transaction(function () use ($request) {
                 $data = $request->input('data');
                 $array = array();
                 $i= 0;
-                $pedido = new pedido();
-                foreach ($data as $dataP) {
-                    
+                $pedido = new Pedido();
+                foreach ($data as $dataP)
+                {
                     $pedido->numOrden           =   $dataP['orden'];
                     $pedido->numFactura         =   $dataP['factura'];
                     $pedido->fecha_despacho     =   $dataP['fecha_despacho'];
@@ -90,32 +94,40 @@ class HomeController extends Controller
                     $pedido->consignado         =   $dataP['consignado'];
                     $pedido->tipo               =   $dataP['tipo'];
                     $pedido->comentarios        =   $dataP['comentarios'];
-                    $pedido->estado             =   $dataP['estado'];                
-                    $pedido->activo             =   "S";      
-                    $pedido->nuevo              = $dataP['nuevo'];          
-                    $pedido->save();             
-                    
-                };                
+                    $pedido->estado             =   $dataP['estado'];
+                    $pedido->activo             =   "S";
+                    $pedido->nuevo              =   $dataP['nuevo'];
+                    $pedido->save();
+                };
                 return response()->json($pedido);
             });
-        } catch (Exception $e) {
+        } catch (Exception $e)
+        {
             $mensaje =  'Excepción capturada: ' . $e->getMessage() . "\n";
-
             return response()->json($mensaje);
+        }
+        //dd($message);
+        if( $message )
+        {
+            $data = $request->input('data');
+            $factura = $data[0]['factura'];
+            Notification::insertarRegistro($factura);
         }
     }
     public function editar(Request $request)
     {
-
-        try {
-            DB::transaction(function () use ($request) {
+        //$data = $request->input('data');
+        //dd($data[0]['factura']);
+        try
+        {
+            $message= DB::transaction(function () use ($request) {
                 $data = $request->input('data');
                 $array = array();
                 $i= 0;
-
-                foreach ($data as $dataP) {
-                    
-                    pedido::where('id', $dataP['id'])->update([
+                $pedido = new Pedido();
+                foreach ($data as $dataP)
+                {
+                    Pedido::where('id', $dataP['id'])->update([
                         'numOrden' =>   $dataP['orden'],
                         'numFactura' => $dataP['factura'],
                         'fecha_despacho' => date("Y-m-d", strtotime($dataP['fecha_despacho'])),
@@ -134,16 +146,21 @@ class HomeController extends Controller
                         'estado' => $dataP['estado'],
                         'empresa' => $dataP['empresa'],
                         'nuevo' => $dataP['nuevo']
-                        
                     ]);
-                    
-                };                
+                };
                 return response()->json($pedido);
             });
-        } catch (Exception $e) {
+        } catch (Exception $e)
+        {
             $mensaje =  'Excepción capturada: ' . $e->getMessage() . "\n";
-
             return response()->json($mensaje);
+        }
+        //dd($message);
+        if( $message )
+        {
+            $data = $request->input('data');
+            $factura = $data[0]['factura'];
+            Notification::actualizarRegistro($factura);
         }
     }
 
@@ -156,18 +173,18 @@ class HomeController extends Controller
                 $i= 0;
 
                 foreach ($data as $dataP) {
-                    
+
                     pedido::where('id', $dataP['id'])->update([
-                        'activo' => 'N',                        
+                        'activo' => 'N',
                     ]);
-                    
-                };                
+
+                };
                 return response()->json($pedido);
             });
         } catch (Exception $e) {
             $mensaje =  'Excepción capturada: ' . $e->getMessage() . "\n";
 
             return response()->json($mensaje);
-        } 
+        }
     }
 }

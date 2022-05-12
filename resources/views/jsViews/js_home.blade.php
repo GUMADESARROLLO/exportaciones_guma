@@ -1,9 +1,9 @@
 <script type="text/javascript">
     var dtPedidos;
     $(document).ready(function() {
-        
 
-        
+
+
         $('#InputBuscar').on('keyup', function() {
             var table = $('#tblPedidos').DataTable();
             table.search(this.value).draw();
@@ -62,7 +62,7 @@
                     "title": "FECHA DE DESPACHO",
                     "data": "fecha_despacho"
                 },
-                
+
                 {
                     "title": "ARTICULO",
                     "data": "codigo"
@@ -110,7 +110,7 @@
                 {
                     "title": "Consignado",
                     "data": "Nombre"
-                },  
+                },
                 {
                     "title": "TIPO",
                     "data": "tipo"
@@ -227,9 +227,9 @@
         $('#opc-articulo').hide();
         $('#cont-close').hide();
         row = row[index]
-       
+
         $('#mdlResumen').modal('show');
-       
+
         $("#id_numero_recibo").val(row.numOrden)
         $("#id_numero_factura").val(row.numFactura)
         if (row.nuevo == 'N') {
@@ -388,7 +388,7 @@
             },
             complete: function(jqXHR, status) {}
         });
-        
+
         $.ajax({
             url: 'laboratorios',
             type: "GET",
@@ -487,7 +487,7 @@
             Descripcion = Descripcion_new;
             nuevo = 'S';
         }
-       
+
         var Titulo = '';
         var Ruta = '';
         if (nRecibo === '') {
@@ -556,7 +556,7 @@
             };
 
             console.log(array)
-           
+
             $.ajax({
                 url: Ruta,
                 data: {
@@ -573,7 +573,7 @@
                     //mensaje(response.responseText, 'error');
                 }
             }).done(function(data) {
-                location.reload();
+                //location.reload();
             });
         }
 

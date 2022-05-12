@@ -5,35 +5,42 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use App\Models\Admin\usuario;
+use App\Models\Admin\Usuario;
 use App\Models\Admin\Rol;
 use Illuminate\Support\Facades\Validator;
-use Redirect;
-use DB;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\DB;
 
 
-class usuarioController extends Controller
+class UsuarioController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+
     public function index()
     {
         $message = [
             'mensaje' =>  '',
             'tipo' => ''
         ];
-        $user = usuario::orderBy('id', 'asc')->get();
+        $user = Usuario::orderBy('id', 'asc')->get();
         return view('Admin.Admin.Usuario.index', compact(['user', 'message']));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function detalleUser($idUser)
+    {
+        $user  = usuario::where('id', $idUser)->where('estado', 1)->get()->toArray();
+        $userById = usuario::findOrFail($idUser);
+        $id_rol = $userById->roles()->first()->id;
+        $rol  = Rol::where('id', $id_rol)->get();
+        //echo $rol;
+        return view('Admin.Admin.Usuario.detalle', compact(['user', 'rol']));
+    }
+
+
     public function crear()
     {
         $message = [
@@ -45,12 +52,7 @@ class usuarioController extends Controller
         return view('Admin.Admin.Usuario.crear', compact(['rol', 'message']));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function guardar(Request $request)
     {
 
@@ -59,10 +61,11 @@ class usuarioController extends Controller
         );
 
         $validator = Validator::make($request->all(), [
-            'username' => 'required|unique:users|max:100',
+            'username' => 'required|unique:users|max:10',
+            'email'    => 'required|unique:users|max:50',
             'password' => 'required|max:255',
-            'nombre'   => 'required|max:255',
-            'apellido' => 'required|max:255',
+            'nombre'   => 'required|max:50',
+            'apellido' => 'required|max:50',
             'rol_id'   => 'required'
         ], $messages);
 
@@ -71,17 +74,18 @@ class usuarioController extends Controller
         }
 
         $user = new usuario();
-        $user->nombre = $request->nombre;
+        $user->nombre   = $request->nombre;
         $user->apellido = $request->apellido;
         $user->username = $request->username;
+        $user->email    = $request->email;
         $user->password = Hash::make($request->password);
-        $user->image = 'none';
-        $user->estado = true;
+        $user->image    = 'none';
+        $user->estado   = 1;
         $user->save();
 
         $user->roles()->attach($request->rol_id);
 
-        return redirect()->action('Admin\usuarioController@guardarUserSuccess');
+        return redirect()->action('Admin\UsuarioController@guardarUserSuccess');
     }
 
     public function guardarUserSuccess()
@@ -117,16 +121,18 @@ class usuarioController extends Controller
 
     public function actualizarUser(Request $request)
     {
+        //dd($request);
          $messages = array(
             'required' => 'El :attribute es un campo requerido'
         );
 
         $validator = Validator::make($request->all(), [
             'rol_id'   => 'required',
+            'username' => 'required|unique:users|max:10',
+            'email'    => 'required|unique:users|max:50',
             'password' => 'required|max:255',
-            'nombre'   => 'required|max:255',
-            'apellido' => 'required|max:255',
-            'username' => 'required|max:255'
+            'nombre'   => 'required|max:50',
+            'apellido' => 'required|max:50',
         ]);
 
         if ($validator->fails()) {
@@ -140,7 +146,8 @@ class usuarioController extends Controller
                 'nombre'               => $request->nombre,
                 'apellido'             => $request->apellido,
                 'username'             => $request->username,
-                'password'              => Hash::make($request->password)
+                'email'                => $request->email,
+                'password'             => Hash::make($request->password)
             ]);
 
 
@@ -153,23 +160,6 @@ class usuarioController extends Controller
         //usuario::find($request->id_usuario)->roles()->updateExistingPivot('',['rol_id' => $request->id_rol]);
 
         return redirect()->back()->with('message-success', 'Se actualizo el usuario con exito :)');
-    }
-
-
-
-    public function detalleUser($idUser)
-    {
-
-        $user  = usuario::where('id', $idUser)->where('estado', 1)->get()->toArray();
-
-        $userById = usuario::findOrFail($idUser);
-
-        $id_rol = $userById->roles()->first()->id;
-
-        $rol  = Rol::where('id', $id_rol)->get();
-
-        //echo $rol;
-        return view('Admin.Admin.Usuario.detalle', compact(['user', 'rol']));
     }
 
     public function eliminarUser($idUser)

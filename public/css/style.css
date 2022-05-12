@@ -2820,7 +2820,7 @@ p.text-muted {
   clear: both;
   float: unset;
   right: 0;
-  margin-left: 264px;
+
   min-height: 100vh;
   -webkit-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
@@ -10631,12 +10631,12 @@ table.dataTable tbody tr.selected {
 }
 
 /*
-Full screen Modal 
+Full screen Modal
 */
 .modal.modal-fullscreen .modal-dialog {
   width: 90%;
   height: 90%!important;
-  max-width: none; 
+  max-width: none;
   top: 5px!important;
   left: 10px!important;
   right: 10px!important;
@@ -10650,7 +10650,7 @@ Full screen Modal
   border: none; }
 
 .modal.modal-fullscreen .modal-body {
-  overflow-y: auto; 
+  overflow-y: auto;
 }
 
 
@@ -10681,7 +10681,7 @@ Full screen Modal
   direction: ltr;
 }
 .dBorder {
-  border: 1px solid #ccc !important;  
+  border: 1px solid #ccc !important;
 }
 .dataTables_wrapper .dataTables_paginate .paginate_button.current,.dataTables_wrapper .dataTables_paginate .paginate_button.current:hover{
   color:white !important;
