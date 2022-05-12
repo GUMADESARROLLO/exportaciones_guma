@@ -138,3 +138,108 @@ function    inicializaControlFecha() {
         showDropdowns: true
     });
 }
+
+
+$('#bell').on('click', function (e) {
+    //$('.toast').toast('show');
+
+    $('#list-notify').empty();
+    console.log(exist_notify);
+    //getCommentIM();
+    getNotificacionesExport();
+    //exist_notify();
+    if ($('#contain-notify').is(":visible")) {
+        $('#contain-notify').hide();
+        exist_notify();
+    } else {
+        $('#contain-notify').show();
+        changeState();
+    }
+});
+
+//Nueva notificacion
+
+exist_notify();
+function exist_notify() {
+    $.ajax({
+        url: "http://localhost/exportaciones/api/notificaciones",
+        type: "GET",
+        async: true,
+        success: function (response) {
+            if (response.length>0) {
+                $('#noti_exist').addClass("circulo ml-4");
+            } else {
+                $('#noti_exist').removeClass("circulo");
+                const scriptHTML = `<div class="overflow-auto m-0 p-0">
+                                        <ul class="list-group list-group-flush">
+                                            <li class="list-group-item ">
+                                                <div class="row mx-2 justify-content-center">
+                                                    <p>No hay notificaciones pendientes</p>
+                                                </div>
+                                            </li>
+                                         </ul>
+                                   </div>`
+                    ;
+                $("#No_exist").html(scriptHTML);
+            //    console.log('No hay notificaciones');
+            }
+        }
+    });
+
+}
+
+function getNotificacionesExport() {
+    $.ajax({
+        url: "http://localhost/exportaciones/api/notificaciones",
+        type: "GET",
+        async: true,
+        dataType: "json",
+        success: function (data) {
+            console.log(data);
+            data.forEach(element => {
+                const scriptHTML = `<li class="list-group-item" style="border-left: 3px solid #007bff !important ;">
+                                          <div class="row">
+                                            <div class="col-2">
+                                              <img src="images/user/avatar-4.jpg" alt="" class="img-fluid " style="border-radius: 50%;">
+                                            </div>
+                                            <div class="col-7 m-0 p-0">
+                                              <div class="body m-0 p-0">
+                                                <div class="container-fluid m-0 p-0">
+                                                  <h6>`+ element.nombre + `</h6>
+                                                  <p class="text-secondary m-0 p-0 mb-1">` + element.title + `</p>
+                                                  <p class="border-left pl-2  border-primary" style="border-left: 3px solid #007bff !important ;">` + element.message + `</p>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div class="col-3 m-0 p-0">
+                                              <span>` + element.created_at + `</span>
+                                            </div>
+                                          </div>
+                                        </li>`
+                    ;
+                $("#list-notify").append(scriptHTML);
+            });
+        }
+    });
+}
+//Cambiar estado
+function changeState() {
+    $.ajax({
+        url: "http://127.0.0.1/exportaciones/api/updateState",
+        type: "POST",
+        dataType: "json",
+        data: {},
+        async: true,
+        success: function (response) {
+            console.log(response);
+            console.log('Estado cambiado');
+
+        }
+    });
+}
+
+
+
+
+
+

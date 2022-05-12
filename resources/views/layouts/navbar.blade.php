@@ -103,6 +103,11 @@
                 </div>
             </li>
             @if(Auth::User()->activeRole()== 1 )
+            <li class="nav-item ">
+                <a class="nav-link waves-effect waves-light" id="bell"><div id="noti_exist"></div>
+                    <i class="material-icons text-info mr-2 " style="font-size: 20px">notifications</i>
+                </a>
+            </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle waves-effect waves-light" id="navbarDropdownMenuLink-4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                     <i class="fas fa-cog"></i> Configuración
@@ -121,11 +126,30 @@
             </li>
             @endif
             <li class="nav-item active">
-                <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit()" class="nav-link waves-effect waves-light" >
-                    <i  class="feather icon-log-out mr-2"></i> Salir
+                <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit()" class="nav-link waves-effect waves-light">
+                    <i class="feather icon-log-out mr-2"></i> Salir
                 </a>
             </li>
-
         </ul>
     </div>
 </nav>
+
+<div class="container-fluid ml-auto " style="position: relative; z-index: 1 ; display:none;" id="contain-notify">
+    <div class="card" style="position: absolute; top: 0; right: 25px; max-height: 500px; max-width:30%; min-width:30%" data-autohide="false">
+        <div class=" card-header">
+            <div class="d-flex">
+                <div class=" justify-content-start mr-auto">
+                    <strong>Notificaciones</strong>
+                </div>
+                <div class="justify-content-end ml-auto">
+                    <h6 class="text-secondary"></h6>
+                </div>
+            </div>
+        </div>
+        <div id="No_exist"></div>
+        <div class="m-0 p-0" style="overflow-y : scroll !important">
+            <ul class="list-group list-group-flush" id="list-notify">
+            </ul>
+        </div>
+    </div>
+</div>
