@@ -1,15 +1,17 @@
 @extends('layouts.main')
 @section('metodosjs')
 @include('jsViews.js_home')
-<!-- <link rel="stylesheet" type="text/css" href="{{ asset('css/detailStyle.css') }}"> -->
+ <link rel="stylesheet" type="text/css" href="{{ asset('css/detailStyle.css') }}"> 
 
-<style>
+ <style>
     a {
         cursor: pointer;
         color: #5E5E5E;
         text-decoration: none;
+
     }
 
+    
     .dataTables_paginate {
         display: flex;
         align-items: center;
@@ -24,28 +26,87 @@
         margin-inline: 5px;
     }
 
-    .tbl_rows_transito {
-        background-color: #92d050 !important;
-        color: #000 !important;
+    .custom {
+        min-width: 70%;
+        min-height: 100%;
     }
 
-    .tbl_rows_pedido {
-        background-color: #FFFFFF !important;
-        color: #000 !important;
+    .custom_detail {
+        min-width: 80%;
+        min-height: 100%;
     }
 
-    .tbl_rows_producto_minsa {
-        background-color: #ffe699 !important;
-        color: #000 !important;
+    u.dotted {
+        border-bottom: 1px dashed #999;
+        text-decoration: none;
+        font-size: 1.3em;
     }
 
-    .icon-red {
-        color: red
+    .dBorder {
+        border: 1px solid #ccc !important;
     }
 
-    .icon-blue {
-        color: #0072bc
+    .text-primary {
+        color: #4e73df !important;
     }
+
+    .text-success {
+        color: #1cc88a !important;
+    }
+
+    .text-info {
+        color: #36b9cc !important;
+    }
+
+    .text-warning {
+        color: #f6c23e !important;
+    }
+
+    .border-left-primary {
+        border-left: .25rem solid #4e73df !important;
+    }
+
+    .border-left-success {
+        border-left: .25rem solid #1cc88a !important;
+    }
+
+    .border-left-info {
+        border-left: .25rem solid #36b9cc !important;
+    }
+
+    .border-left-warning {
+        border-left: .25rem solid #f6c23e !important;
+    }
+
+    .color-focus {
+        color: #0894ff !important;
+    }
+    .nav-tabs > .nav-item {
+        padding-left: 3.25rem;
+    }
+
+    @media (min-width: 768px) {
+        .nav-tabs .nav-item {
+            padding-left: 1.5rem;
+        }
+    }
+    @media (min-width: 992px) {
+        .nav-tabs .nav-item {
+            padding-left: 1.75rem;
+        }
+    }
+    @media (min-width: 1200px) {
+        .nav-tabs .nav-item {
+            padding-left: 2.25rem;
+        }
+    }
+    .DateRange {
+        border: 2px solid #f6c23e !important;
+    }
+    .sizebadge{
+        font-size: 1.2em;
+    }
+    
 </style>
 @endsection
 @section('content')
@@ -56,53 +117,217 @@
             <div class="pcoded-inner-content">
                 <div class="main-body">
                     <div class="page-wrapper">
-                        <div class="form-row">
-                            <div class="form-group col-md-9">
-                                <div class="input-group" style="width: 100%;" id="cont_search">
-                                    <span class="input-group-text" id="basic-addon1">
-                                        <i class="material-icons text-black ml-1">search</i>
-                                    </span>
-                                    <input type="text" id="InputBuscar" class="form-control bg-white" placeholder="Buscar..." aria-label="Username" aria-describedby="basic-addon1">
-                                    <div class="input-group-prepend" id="btnAdd">
-                                        <span class="input-group-text" id="basic-addon1">
-                                            <i class="material-icons icon-blue ml-1">add</i>
-                                        </span>
+                    <div class="row g-gs ">
+                            <div class="col-lg-3">
+                                <div class="row g-gs ">
+                                    <div class="col-md-12 col-lg-12 ">
+                                        <div class="card card-bordered border-left-primary">
+
+                                            <div class="card-inner">
+                                                <div class="row no-gutters align-items-center">
+                                                    <div class="col mr-2">
+                                                        <div class="card-title-group align-start mb-0">
+                                                            <div class="card-title">
+                                                                <h6 class="text-xs  text-primary text-uppercase mb-1">MIFIC</h6>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="card-stats">
+                                                            <div class="card-stats-group g-2">
+                                                                <div class="card-stats-data">
+                                                                    <div class="title">CON SI</div>
+                                                                    <div class="amount OnClickSearch" ><u class="dotted" id="id_si_mific">0.00</u></div>
+                                                                </div>
+                                                                <div class="card-stats-data">
+                                                                    <div class="title">CON NO </div>
+                                                                    <div class="amount OnClickSearch" ><u class="dotted" id="id_no_mific">0.00</u></div>
+                                                                    
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-auto">
+                                                        <i class="fas fa-info-circle  fa-2x text-gray-300" id="id_icon_info"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
 
                                 </div>
+
                             </div>
-                            <div class="form-group col-md-1 ">
-                                <select class="form-control" id="id_filter_empresa">
-                                    <option value="">Todo</option>
-                                    <option>UNIMARK S,A</option>
-                                    <option>GUMA PHARMA</option>
-                                </select>
-                            </div>
-                            <div class="form-group col-md-1 ">
-                                <select class="form-control" id="id_filter_tipo">
-                                    <option value="">Todo</option>
-                                    <option>TRANSITO</option>
-                                    <option>PRODUCTO MINSA</option>
-                                    <option>PEDIDO</option>
-                                </select>
-                            </div>
-                            <div class="form-group col-md-1 ">
-                                <select class="form-control" id="id_filter_row">
-                                    <option value="-1">Todo</option>
-                                    <option value="7">7</option>
-                                    <option value="20">20</option>
-                                    <option value="100">100</option>
-                                </select>
+                            <div class="col-lg-3">
+                                <div class="row g-gs">
+                                    <div class="col-md-12 col-lg-12">
+                                        <div class="card card-bordered border-left-success">
+                                            <div class="card-inner">
+                                                <div class="row no-gutters align-items-center">
+                                                    <div class="col mr-2">
+                                                        <div class="card-title-group align-start mb-0">
+                                                            <div class="card-title">
+                                                                <h6 class="text-xs font-weight-bold text-success text-uppercase mb-1">REGENCIA NECESITA PERMISO</h6>
+                                                            </div>
+                                                        </div>                                                       
+                                                        <div class="card-stats">
+                                                            <div class="card-stats-group g-2">
+                                                                <div class="card-stats-data">
+                                                                    <div class="title"> SI</div>
+                                                                    <div class="amount OnClickSearch" ><u class="dotted" id="id_si_refencia">0.00</u></div>
+                                                                </div>
+                                                                <div class="card-stats-data">
+                                                                    <div class="title">NO </div>
+                                                                    <div class="amount OnClickSearch" ><u class="dotted" id="id_no_refencia">0.00</u></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-auto">
+                                                        <i class="fas fa-info-circle fa-2x text-gray-300" id=""></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
                             </div>
 
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <table class="table-responsive-xl table-striped table-bordered table-sm post_back mt-3" width="100%" id="tblPedidos">
-                                    <thead class="bg-blue text-light"></thead>
-                                </table>
+                            <div class="col-lg-3">
+                                <div class="row g-gs">
+                                    <div class="col-md-12 col-lg-12">
+                                        <div class="card card-bordered border-left-info">
+                                            <div class="card-inner">
+                                                <div class="row no-gutters align-items-center">
+                                                    <div class="col mr-2">
+                                                        <div class="card-title-group align-start">
+                                                            <div class="card-title">
+                                                                <h6 class="text-xs font-weight-bold text-info text-uppercase mb-1"> MINSA ó Privado</h6>
+                                                            </div>
+                                                        </div>
+                                                        <div class="card-stats">
+                                                            <div class="card-stats-group g-2">
+                                                                <div class="card-stats-data">
+                                                                    <div class="title">PRIVADO</div>
+                                                                    <div class="amount OnClickSearch" ><u class="dotted" id="id_tipo_privado">0.00</u></div>
+                                                                </div>
+                                                                <div class="card-stats-data">
+                                                                    <div class="title">MINSA</div>
+                                                                    <div class="amount OnClickSearch" ><u class="dotted" id="id_tipo_misa">0.00</u></div>
+                                                                </div>
+                                                                
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-auto">
+                                                    <i class="fas fa-info-circle fa-2x text-gray-300" id=""></i>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="row g-gs">
+                                    <div class="col-md-12 col-lg-12">
+                                        <div class="card card-bordered border-left-warning">
+                                            <div class="card-inner">
+                                                <div class="row no-gutters align-items-center">
+                                                    <div class="col mr-2">
+                                                        <div class="card-title-group align-start mb-0">
+                                                            <div class="card-title">
+                                                                <h6 class="text-xs font-weight-bold text-warning text-uppercase mb-1">ESTADOS</h6>
+                                                            </div>
+                                                        </div>
+                                                        <div class="card-stats">
+                                                            <div class="card-stats-group g-2">
+                                                                <div class="card-stats-data">
+                                                                    <div class="title">Transito</div>
+                                                                    <div class="amount OnClickSearch" ><u class="dotted" id="id_estado_01">0.00</u></div>
+                                                                </div>
+                                                                <div class="card-stats-data">
+                                                                    <div class="title">Producto Minsa</div>
+                                                                    <div class="amount OnClickSearch" ><u class="dotted" id="id_estado_02">0.00</u></div>
+                                                                </div>
+                                                                <div class="card-stats-data">
+                                                                    <div class="title">PEDIDO</div>
+                                                                    <div class="amount OnClickSearch" ><u class="dotted" id="id_estado_03">0.00</u></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-auto">
+                                                    <i class="fas fa-info-circle fa-2x text-gray-300" id=""></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
+                        <div class="col-lg-12">
+                                <div class="row g-gs ">
+                                    <div class="col-md-12 col-lg-12 ">
+                                        <div class="card">
+                                            <div class="card-header ">
+                                                <div class="form-row">
+                                                    <div class="form-group col-md-9">
+                                                        <div class="input-group" style="width: 100%;" id="cont_search">
+                                                            <span class="input-group-text" id="basic-addon1">
+                                                                <i class="material-icons text-black ml-1">search</i>
+                                                            </span>
+                                                            <input type="text" id="InputBuscar" class="form-control bg-white" placeholder="Buscar..." aria-label="Username" aria-describedby="basic-addon1">
+                                                            <div class="input-group-prepend" id="btnAdd">
+                                                                <span class="input-group-text" id="basic-addon1">
+                                                                    <i class="material-icons icon-blue ml-1">add</i>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group col-md-1 ">
+                                                        <select class="form-control" id="id_filter_empresa">
+                                                            <option value="">Todo</option>
+                                                            <option>UNIMARK S,A</option>
+                                                            <option>GUMA PHARMA</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group col-md-1 ">
+                                                        <select class="form-control" id="id_filter_tipo">
+                                                            <option value="">Todo</option>
+                                                            <option>TRANSITO</option>
+                                                            <option>PRODUCTO MINSA</option>
+                                                            <option>PEDIDO</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group col-md-1 ">
+                                                        <select class="form-control" id="id_filter_row">
+                                                            <option value="-1">Todo</option>
+                                                            <option value="7">7</option>
+                                                            <option value="20">20</option>
+                                                            <option value="100">100</option>
+                                                        </select>
+                                                    </div>
+                                                </div>                                                
+                                            </div>
+                                            
+                                            <div class="form-group col-md-12 mb-3">
+                                                <div class="table-responsive" >
+                                                    <table class="table table-hover" id="tblPedidos" width="99%"></table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                       
+                                    </div>
+                                </div>
+                            </div>
+                        
                     </div>
                 </div>
             </div>
