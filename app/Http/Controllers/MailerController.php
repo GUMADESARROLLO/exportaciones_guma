@@ -1,50 +1,26 @@
 <?php
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\App;
 use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 
+require 'App/Email.php';
+
 class MailerController extends Controller
 {
     //
-
-    public static function enviarMail($mensaje)
+    public function index()
     {
-        $contenido = '
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <div class="container-fluid ml-auto ">
-            <div class="card" style="max-height: 500px; max-width:30%; min-width:30%" data-autohide="false">
-                <div class=" card-header">
-                    <div class="d-flex">
-                        <div class=" justify-content-start mr-auto">
-                            <strong>Notificaciones</strong>
-                        </div>
-                        <div class="justify-content-end ml-auto">
-                            <h6 class="text-secondary">Se ha editado la factura con el codigo <b>' . $mensaje . '</b></h6>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="overflow-auto m-0 p-0">
+        return view("email");
+    }
 
-        </div>
-        </div>
-</body>
-</html>
-        ';
-
+    public static function enviarMail($data)
+    {
         $mail = new PHPMailer(true);
-
-        try {
+        try
+        {
             //Server settings
             $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
             $mail->isSMTP();                                            //Send using SMTP
@@ -58,10 +34,9 @@ class MailerController extends Controller
             //Recipients
             $mail->setFrom('pruebadevs2022@gmail.com', 'Mailer');
             $mail->addAddress('analista3.guma@gmail.com', 'Joe User');     //Add a recipient
-
             $mail->addReplyTo('pruebadevs2022@gmail.com', 'Information');
-            //$mail->addCC('analista.guma@gmail.com');
-            //$mail->addBCC('analista2.guma@gmail.com');
+            //$mail->addCC('');
+            //$mail->addBCC('');
 
             //Attachments
             //$mail->addAttachment('/var/tmp/file.tar.gz');         //Add attachments
@@ -70,7 +45,12 @@ class MailerController extends Controller
             //Content
             $mail->isHTML(true);                                  //Set email format to HTML
             $mail->Subject = 'Prueba de correo Laravel';
-            $mail->Body = $contenido;
+            //$mail->Body = view('email', ['data' => $mensaje])->render();
+
+            $email_template = 'App/Email.php';
+            $message = file_get_contents($email_template);
+            $message = str_replace('%data%', $data, $message);
+            $mail->Body = $message;
             $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
             $mail->send();
