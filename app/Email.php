@@ -86,9 +86,9 @@
             #houdini {
                 display: none !important;
             }
-            .footer_padding] {
-            padding: 20px !important;
-        }
+            .footer_padding {
+                padding: 20px !important;
+            }
             .center_img {
                 width: 100% !important;
                 padding: 0 !important;
