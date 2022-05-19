@@ -8,8 +8,7 @@ use App\Models\Admin\Usuario;
 
 
 class Notification_B extends Model
-{
-    protected $connection = 'mysql2';
+{    
     protected $table = 'gumanet.notifications';
     public $timestamps = true;
     protected $fillable = ['usuario_id','nombre', 'title', 'message', 'leido'];
