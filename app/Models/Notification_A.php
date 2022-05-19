@@ -25,9 +25,9 @@ class Notification_A extends Model
         $aviso->message = "Se ha insertado un nuevo registro con codigo de factura '$factura' ";
         $aviso->leido = 0;
         $aviso->save();
-
-        $mensaje = $factura;
-        MailerController::enviarMail($mensaje);
+        /*Mandar correo */
+        $data = $factura;
+        MailerController::enviarMail($data);
         return 0;
 
     }
@@ -41,9 +41,7 @@ class Notification_A extends Model
         $aviso->message = "Se ha editado la factura con el codigo '$factura' ";
         $aviso->leido = 0;
         $aviso->save();
-
-        $mensaje = $factura;
-        MailerController::enviarMail($mensaje);
+       
         return 0;
     }
 }

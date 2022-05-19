@@ -63,8 +63,9 @@ Route::post('guardar_pedido', 'HomeController@guardar')->name('guardar_pedido');
 Route::post('editar_pedido', 'HomeController@editar')->name('editar_pedido');
 Route::post('cambiar_estado', 'HomeController@cambiarEstado')->name('cambiar_estado');
 
-//Route::get('mail', 'MailerController@index')->name('mail');
+
 Route::get('Allnotificaciones', 'HomeController@getAllnotificaciones')->name('Allnotificaciones');
 Route::post('updateState', 'HomeController@updateState')->name('updateState');
+Route::get('mail', 'MailerController@index')->name('mail');
 
 Auth::routes();
