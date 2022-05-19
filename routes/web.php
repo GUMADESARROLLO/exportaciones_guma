@@ -27,15 +27,15 @@ Route::get('/configuracion', 'User\configuracionController@index')->name('config
 
 
 //RUTAS USUARIO
-Route::get('user/nuevo', 'Admin\usuarioController@crear')->name('user/nuevo');
-Route::post('usuario/guardar', 'Admin\usuarioController@guardar')->name('usuario/guardar');
-Route::get('failed-user', 'Admin\usuarioController@guardarUserFailed')->name('failed-user');
-Route::get('success-user', 'Admin\usuarioController@guardarUserSuccess')->name('success-user');
-Route::get('user/edit/{id}', 'Admin\usuarioController@editarUser')->name('user/edit/{id}');
-Route::post('usuario/actualizar', 'Admin\usuarioController@actualizarUser')->name('usuario/actualizar');
-Route::get('user/detalle/{id}', 'Admin\usuarioController@detalleUser')->name('user/detalle/{id}');
-Route::get('user/eliminar/{id}', 'Admin\usuarioController@eliminarUser')->name('user/eliminar/{id}');
-Route::get('user/activar/{id}', 'Admin\usuarioController@activarUser')->name('user/activar/{id}');
+Route::get('user/nuevo', 'Admin\UsuarioController@crear')->name('user/nuevo');
+Route::post('usuario/guardar', 'Admin\UsuarioController@guardar')->name('usuario/guardar');
+Route::get('failed-user', 'Admin\UsuarioController@guardarUserFailed')->name('failed-user');
+Route::get('success-user', 'Admin\UsuarioController@guardarUserSuccess')->name('success-user');
+Route::get('user/edit/{id}', 'Admin\UsuarioController@editarUser')->name('user/edit/{id}');
+Route::post('usuario/actualizar', 'Admin\UsuarioController@actualizarUser')->name('usuario/actualizar');
+Route::get('user/detalle/{id}', 'Admin\UsuarioController@detalleUser')->name('user/detalle/{id}');
+Route::get('user/eliminar/{id}', 'Admin\UsuarioController@eliminarUser')->name('user/eliminar/{id}');
+Route::get('user/activar/{id}', 'Admin\UsuarioController@activarUser')->name('user/activar/{id}');
 
 
 //RUTAS ROLES
@@ -63,6 +63,8 @@ Route::post('guardar_pedido', 'HomeController@guardar')->name('guardar_pedido');
 Route::post('editar_pedido', 'HomeController@editar')->name('editar_pedido');
 Route::post('cambiar_estado', 'HomeController@cambiarEstado')->name('cambiar_estado');
 
-
+//Route::get('mail', 'MailerController@index')->name('mail');
+Route::get('Allnotificaciones', 'HomeController@getAllnotificaciones')->name('Allnotificaciones');
+Route::post('updateState', 'HomeController@updateState')->name('updateState');
 
 Auth::routes();

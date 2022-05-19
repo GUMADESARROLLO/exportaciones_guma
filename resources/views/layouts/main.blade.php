@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -38,9 +39,25 @@
   <!-- CSS Datatimepicker -->
   <link rel="stylesheet" href="{{ asset('css/bootstrap-datetimepicker.css') }}">
 
+  <style>
+    a {
+      text-decoration: none !important;
+      /*color: #000;*/
+    }
+
+    .circulo {
+      height: 10px !important;
+      width: 10px !important;
+      background: #dc3545 !important;
+      -moz-border-radius: 50px !important;
+      -webkit-border-radius: 50px !important;
+      border-radius: 50% !important;
+    }
+  </style>
   <!-- Style CSS -->
   @yield("styles")
 </head>
+
 <body>
   <!-- [ Pre-loader ] start -->
   <div class="loader-bg">
@@ -49,14 +66,14 @@
     </div>
   </div>
   <form id="logout-form" action="{{ route('logout') }}" method="post">
-  @csrf
+    @csrf
   </form>
-   <!-- [ Pre-loader ] end -->
+  <!-- [ Pre-loader ] end -->
 
   <!-- [ navigation menu ] start -->
- <!-- @include('layouts.menu') -->
+  <!-- @include('layouts.menu') -->
   <!-- [ navigation menu ] end -->
- @include('layouts.navbar')
+  @include('layouts.navbar')
 
   <!-- [ Header ] start -->
   <!-- @include('layouts.header') -->
@@ -75,7 +92,7 @@
   <script src="{{ asset('js/daterangepicker.js') }}"></script>
   <script src="{{ asset('js/js_general.js') }}"></script>
   <script src="{{ asset('js/moment.js') }}"></script>
-  
+
   <script src="{{ asset('js/daterangepicker.js') }}"></script>
   <script src="{{ asset('js/bootstrap-datetimepicker.min.js') }}"></script>
   <script src="{{ asset('js/bootstrap-select.min.js') }}"></script>
@@ -86,4 +103,5 @@
   @yield('scriptsPlugins')
   @yield('metodosjs')
 </body>
+
 </html>

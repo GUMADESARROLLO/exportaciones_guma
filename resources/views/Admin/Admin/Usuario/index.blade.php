@@ -18,7 +18,7 @@
                                     <h5 class="m-b-10">Usuarios</h5>
                                 </div>
                                 <ul class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="home"><i class="feather icon-home"></i></a></li>
+                                    <!--<li class="breadcrumb-item"><a href="home"><i class="feather icon-home"></i></a></li>-->
                                     <li class="breadcrumb-item"><a href="{{url('/home')}}">Inicio</a></li>
                                     <li class="breadcrumb-item"><a href="javascript:">Usuarios</a></li>
                                 </ul>
@@ -50,7 +50,7 @@
                                                         <th>APELLIDOS</th>
                                                         <th>USERNAME</th>
                                                         <th>ESTADO</th>
-                                                        <th></th>
+                                                        <th>ACCION</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>

@@ -8,8 +8,8 @@ use App\Models\Admin\usuario;
 class Rol extends Model
 {
     protected $table = 'rol';
-    protected $fillable = ['id', 'descripcion'];
-    protected $guarded = ['id'];
+    protected $fillable = ['descripcion'];
+
 
     public function usuarioByRole() {
         return $this->belongsToMany(usuario::class, 'usuario_rol');
