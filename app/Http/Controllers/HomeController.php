@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models;
 use App\Models\pedido;
-use App\Models\Notification;
+use App\Models\Notification_A;
+use App\Models\Notification_B;
 use App\Models\ArticulosUMK;
 use App\Models\ArticulosGP;
 use App\Models\Laboratorios;
@@ -16,6 +17,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Exception;
 //use Illuminate\Notifications\Notification;
+use Carbon\Carbon;
+
 
 class HomeController extends Controller
 {
@@ -68,22 +71,20 @@ class HomeController extends Controller
     }
     public function guardar(Request $request)
     {
-        try
-        {
+        try {
             $message = DB::transaction(function () use ($request) {
                 $data = $request->input('data');
                 $array = array();
-                $i= 0;
+                $i = 0;
                 $pedido = new Pedido();
-                foreach ($data as $dataP)
-                {
+                foreach ($data as $dataP) {
                     $pedido->numOrden           =   $dataP['orden'];
                     $pedido->numFactura         =   $dataP['factura'];
                     $pedido->fecha_despacho     =   $dataP['fecha_despacho'];
                     $pedido->fecha_orden        =   $dataP['fecha_orden'];
                     $pedido->codigo             =   $dataP['codigo'];
                     $pedido->empresa            =   $dataP['empresa'];
-                    $pedido->descripcion        =   $dataP['descripcion']  ;
+                    $pedido->descripcion        =   $dataP['descripcion'];
                     $pedido->lab                =   $dataP['lab'];
                     $pedido->cantidad           =   $dataP['cantidad'];
                     $pedido->mific              =   $dataP['mific'];
@@ -101,32 +102,30 @@ class HomeController extends Controller
                 };
                 return response()->json($pedido);
             });
-        } catch (Exception $e)
-        {
+        } catch (Exception $e) {
             $mensaje =  'Excepción capturada: ' . $e->getMessage() . "\n";
             return response()->json($mensaje);
         }
         //dd($message);
-        if( $message )
-        {
+        if ($message) {
             $data = $request->input('data');
             $factura = $data[0]['factura'];
-            Notification::insertarRegistro($factura);
+            
+            Notification_A::insertarRegistro($factura);
+            Notification_B::insertarRegistro($factura);
         }
     }
     public function editar(Request $request)
     {
         //$data = $request->input('data');
         //dd($data[0]['factura']);
-        try
-        {
-            $message= DB::transaction(function () use ($request) {
+        try {
+            $message = DB::transaction(function () use ($request) {
                 $data = $request->input('data');
                 $array = array();
-                $i= 0;
+                $i = 0;
                 $pedido = new Pedido();
-                foreach ($data as $dataP)
-                {
+                foreach ($data as $dataP) {
                     Pedido::where('id', $dataP['id'])->update([
                         'numOrden' =>   $dataP['orden'],
                         'numFactura' => $dataP['factura'],
@@ -150,17 +149,16 @@ class HomeController extends Controller
                 };
                 return response()->json($pedido);
             });
-        } catch (Exception $e)
-        {
+        } catch (Exception $e) {
             $mensaje =  'Excepción capturada: ' . $e->getMessage() . "\n";
             return response()->json($mensaje);
         }
         //dd($message);
-        if( $message )
-        {
+        if ($message) {
             $data = $request->input('data');
             $factura = $data[0]['factura'];
-            Notification::actualizarRegistro($factura);
+            Notification_A::actualizarRegistro($factura);
+            Notification_B::actualizarRegistro($factura);
         }
     }
 
@@ -170,14 +168,13 @@ class HomeController extends Controller
             DB::transaction(function () use ($request) {
                 $data = $request->input('data');
                 $array = array();
-                $i= 0;
+                $i = 0;
 
                 foreach ($data as $dataP) {
 
                     pedido::where('id', $dataP['id'])->update([
                         'activo' => 'N',
                     ]);
-
                 };
                 return response()->json($pedido);
             });
@@ -186,5 +183,41 @@ class HomeController extends Controller
 
             return response()->json($mensaje);
         }
+    }
+
+    public function getAllnotificaciones()
+    {
+        $data = array();
+        $i = 0;
+        $notificaciones = Notification_A::select('notifications.*', 'users.nombre', 'users.apellido')
+            ->join('users', 'users.id', '=', 'notifications.usuario_id')
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        foreach ($notificaciones as $dataN) {
+            $data[$i]['id']            = $dataN['id'];
+            $data[$i]['user_id']       = $dataN['usuario_id'];
+            $data[$i]['title']         = $dataN['title'];
+            $data[$i]['message']       = $dataN['message'];
+            $data[$i]['leido']         = $dataN['leido'];
+            $data[$i]['created_at']    = carbon::parse($dataN['created_at'])->diffForHumans();
+            $data[$i]['updated_at']    = $dataN['updated_at'];
+            $data[$i]['nombre']        = $dataN['nombre'];
+            $data[$i]['apellido']      = $dataN['apellido'];
+            $i++;
+        }
+
+
+        return $data;
+    }
+
+    public function updateState()
+    {
+        $notificaciones = Notification_A::where('leido', 0)
+            ->update([
+                'leido' => 1,
+            ]);
+
+        return $notificaciones;
     }
 }

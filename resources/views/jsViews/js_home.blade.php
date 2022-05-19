@@ -672,7 +672,8 @@
                     //mensaje(response.responseText, 'error');
                 }
             }).done(function(data) {
-                //location.reload();
+                location.reload();
+
             });
         }
 
