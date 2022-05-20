@@ -148,16 +148,19 @@ exist_notify();
 
 $('#tinkerbell').on('show.bs.dropdown', function () {
     getAllNotificaciones();
-})
-
-$('#tinkerbell').on('shown.bs.dropdown', function () {
     exist_notify();
-})
-
-$('#tinkerbell').on('hidden.bs.dropdown	', function () {
+ })
+ $('#tinkerbell').on('shown.bs.dropdown', function () {
+    exist_notify();
+    setTimeout(function() {
+        changeState();
+        exist_notify();
+    }, 2000);
+ })
+ $('#tinkerbell').on('hidden.bs.dropdown    ', function () {
     changeState();
     $('#message_content').empty();
-})
+ })
 
 
 function exist_notify() {
@@ -165,6 +168,7 @@ function exist_notify() {
         url: "./Allnotificaciones",
         type: "GET",
         async: true,
+        cache:false, 
         success: function (data) {
             
            
@@ -196,6 +200,7 @@ function changeState() {
         dataType: "json",
         data: {},
         async: true,
+        cache:false, 
         success: function (response) {
             console.log(response);
             console.log('Estado cambiado');
@@ -214,6 +219,7 @@ function getAllNotificaciones() {
         type: "GET",
         async: true,
         dataType: "json",
+        cache:false, 
         success: function (data) {
             console.log(data);
             var i = 0;
@@ -245,6 +251,7 @@ function getAllNotificaciones() {
              </div>
              <div class="notification-ui_dd-content">`;
                 data.forEach(element => {
+                    cambiarCadena(element)
                     if (element.leido == 0) {
                         scriptHTML += `
                             <a href="#!" class="notification-list notification-list--unread text-dark">
@@ -281,9 +288,4 @@ function getAllNotificaciones() {
         }
     });
 }
-
-
-
-
-
 

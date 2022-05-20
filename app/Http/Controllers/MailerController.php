@@ -31,7 +31,7 @@ class MailerController extends Controller
             $mail->Port = 465;                                    
 
             $mail->setFrom('pruebadevs2022@gmail.com', 'Mailer');
-            $mail->addAddress('analista.guma@gmail.com', 'Joe User');     
+            $mail->addAddress('analista3.guma@gmail.com', 'Joe User');     
             $mail->addReplyTo('pruebadevs2022@gmail.com', 'Information');
             //$mail->addCC('');
 

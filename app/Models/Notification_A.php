@@ -41,7 +41,6 @@ class Notification_A extends Model
         $aviso->message = "Se ha editado la factura con el codigo '$factura' ";
         $aviso->leido = 0;
         $aviso->save();
-       
         return 0;
     }
 }
