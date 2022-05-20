@@ -3,7 +3,7 @@
 namespace App\Listeners;
 
 use App\Events\NuevoPedido;
-use App\Models\Notification;
+use App\Models\Notification_A;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\Auth;
@@ -30,7 +30,7 @@ class InsertarNota
     {
         //
         $pedidoinfo = $event->pedido;
-        $aviso = new Notification();
+        $aviso = new Notification_A();
         $iduser = Auth::id();
         //$registro = $request['id'] ;
         $aviso->usuario_id = $iduser;

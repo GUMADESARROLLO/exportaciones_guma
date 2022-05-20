@@ -1,5 +1,4 @@
 <script type="text/javascript">
-   
     $(document).ready(function() {
 
 
@@ -27,43 +26,48 @@
                 .draw();
         }*/
 
-        $(".OnClickSearch").on('click', function(){
+        $(".OnClickSearch").on('click', function() {
             var table = $('#tblPedidos').DataTable();
             var id = $(this).children().first().attr('id');
 
-            
-            
 
-            if(id ==='id_si_mific'){
-                table.columns().search( '' ).columns( 9 ).search( 'SI' ).draw();
 
-            } if(id ==='id_no_mific'){
-                table.columns().search( '' ).columns( 9 ).search( 'NO' ).draw();
+
+            if (id === 'id_si_mific') {
+                table.columns().search('').columns(9).search('SI').draw();
+
+            }
+            if (id === 'id_no_mific') {
+                table.columns().search('').columns(9).search('NO').draw();
             }
 
-            if(id ==='id_si_refencia'){
-                table.columns().search( '' ).columns( 10 ).search( 'SI' ).draw();
+            if (id === 'id_si_refencia') {
+                table.columns().search('').columns(10).search('SI').draw();
 
-            } if(id ==='id_no_refencia'){
-                table.columns().search( '' ).columns( 10 ).search( 'NO' ).draw();
+            }
+            if (id === 'id_no_refencia') {
+                table.columns().search('').columns(10).search('NO').draw();
             }
 
-            if(id ==='id_tipo_misa'){
-                table.columns().search( '' ).columns( 13 ).search( 'PRIVADO' ).draw();
+            if (id === 'id_tipo_misa') {
+                table.columns().search('').columns(13).search('PRIVADO').draw();
 
-            } if(id ==='id_tipo_misa'){
-                table.columns().search( '' ).columns( 13 ).search( 'MINSA' ).draw();
+            }
+            if (id === 'id_tipo_misa') {
+                table.columns().search('').columns(13).search('MINSA').draw();
             }
 
-            if(id ==='id_estado_01'){
-                table.columns().search( '' ).columns( 15 ).search( 'TRANSITO' ).draw();
-            } if(id ==='id_estado_02'){
-                table.columns().search( '' ).columns( 15 ).search( 'PRODUCTO MINSA' ).draw();
-            }if(id ==='id_estado_03'){
-                table.columns().search( '' ).columns( 15 ).search( 'PEDIDO' ).draw();
+            if (id === 'id_estado_01') {
+                table.columns().search('').columns(15).search('TRANSITO').draw();
+            }
+            if (id === 'id_estado_02') {
+                table.columns().search('').columns(15).search('PRODUCTO MINSA').draw();
+            }
+            if (id === 'id_estado_03') {
+                table.columns().search('').columns(15).search('PEDIDO').draw();
             }
 
-            
+
 
         });
 
@@ -132,7 +136,7 @@
                     "title": "MIFIC",
                     "data": "mific"
                 },
-               
+
                 {
                     "title": "REGENCIA NECESITA PERMISO",
                     "data": "permiso_necesario"
@@ -176,8 +180,10 @@
                     "data": "id",
                     "render": function(data, type, row, meta) {
                         return '' +
-                            '<i class="material-icons" onclick="Editar(' + row.id + ')">edit</i>' +
-                            '<i class="material-icons icon-red" onclick="Eliminar(' + row.id + ')">delete</i>' +
+                            '<i class="material-icons" onclick="Editar(' + row.id +
+                            ')">edit</i>' +
+                            '<i class="material-icons icon-red" onclick="Eliminar(' + row.id +
+                            ')">delete</i>' +
                             ''
                     }
                 },
@@ -221,11 +227,11 @@
                 {
                     "visible": false,
                     "targets": [],
-                    "targets": [0,7,9,10,11,13,14,15,17]
+                    "targets": [0, 7, 9, 10, 11, 13, 14, 15, 17]
                 }
             ],
             "createdRow": function(row, data, dataIndex) {
-                
+
 
                 if (data.estado === 0) {
                     $(row).addClass('tbl_rows_transito');
@@ -234,50 +240,66 @@
                 } else if (data.estado === 2) {
                     $(row).addClass('tbl_rows_pedido');
                 }
-                
+
 
             },
             "footerCallback": function(row, data, start, end, display) {
-                
-                var mificSI     = [[],[],[]];
-                var Refencia    = [[],[],[]];
-                var Tipo        = [[],[],[]];                
-                var CountEstados = [[],[],[]];
+
+                var mificSI = [
+                    [],
+                    [],
+                    []
+                ];
+                var Refencia = [
+                    [],
+                    [],
+                    []
+                ];
+                var Tipo = [
+                    [],
+                    [],
+                    []
+                ];
+                var CountEstados = [
+                    [],
+                    [],
+                    []
+                ];
 
                 data.forEach(function(data, index) {
 
-                    if(data.mific ==="SI"){
-                        mificSI[0].push(data.mific)                    
-                    } else if(data.mific ==='NO'){
+                    if (data.mific === "SI") {
+                        mificSI[0].push(data.mific)
+                    } else if (data.mific === 'NO') {
                         mificSI[1].push(data.mific)
-                    }else if(data.mific ==='SOLICITADO'){
+                    } else if (data.mific === 'SOLICITADO') {
                         mificSI[2].push(data.mific)
                     }
 
-                     if(data.permiso_necesario ==="SI"){
-                        Refencia[0].push(data.permiso_necesario)                    
-                    } else if(data.permiso_necesario ==='NO'){
+                    if (data.permiso_necesario === "SI") {
+                        Refencia[0].push(data.permiso_necesario)
+                    } else if (data.permiso_necesario === 'NO') {
                         Refencia[1].push(data.permiso_necesario)
                     }
 
-                    if(data.permiso_necesario ==="SI"){
-                        Refencia[0].push(data.permiso_necesario)                    
-                    } else if(data.permiso_necesario ==='NO'){
+                    if (data.permiso_necesario === "SI") {
+                        Refencia[0].push(data.permiso_necesario)
+                    } else if (data.permiso_necesario === 'NO') {
                         Refencia[1].push(data.permiso_necesario)
                     }
 
-                    if(data.tipo ==="PRIVADO"){
-                        Tipo[0].push(data.tipo)                    
-                    } else if(data.tipo ==='MINSA'){
+                    if (data.tipo === "PRIVADO") {
+                        Tipo[0].push(data.tipo)
+                    } else if (data.tipo === 'MINSA') {
                         Tipo[1].push(data.tipo)
                     }
 
                     if (data.estado === 0) {
-                        CountEstados[0].push(data.estado)                    
+                        CountEstados[0].push(data.estado)
                     } else if (data.estado === 1) {
-                        CountEstados[1].push(data.estado)                    
+                        CountEstados[1].push(data.estado)
                     } else if (data.estado === 2) {
-                        CountEstados[2].push(data.estado)                    
+                        CountEstados[2].push(data.estado)
                     }
 
 
@@ -309,10 +331,10 @@
 
         inicializaControlFecha();
 
-    
+
 
     });
-    
+
     function Mostrar(gPosition) {
 
         LoadSelect();
@@ -457,7 +479,8 @@
             async: false,
             success: function(datos) {
                 $.each(datos, function(i, x) {
-                    Articulos += '<option value="' + x['ARTICULO'] + '" >' + x['DESCRIPCION'] + ' - [' + x['ARTICULO'] + ']</option>'
+                    Articulos += '<option value="' + x['ARTICULO'] + '" >' + x['DESCRIPCION'] +
+                        ' - [' + x['ARTICULO'] + ']</option>'
                 });
 
                 $("#id_select_articulo").empty().append(Articulos).selectpicker('refresh');
@@ -476,7 +499,8 @@
             async: false,
             success: function(datos) {
                 $.each(datos, function(i, x) {
-                    Articulos += '<option value="' + x['ARTICULO'] + '" >' + x['DESCRIPCION'] + ' - [' + x['ARTICULO'] + ']</option>'
+                    Articulos += '<option value="' + x['ARTICULO'] + '" >' + x['DESCRIPCION'] +
+                        ' - [' + x['ARTICULO'] + ']</option>'
                 });
 
                 $("#id_select_articulo").empty().append(Articulos).selectpicker('refresh');
@@ -495,7 +519,8 @@
             async: false,
             success: function(datos) {
                 $.each(datos, function(i, x) {
-                    Laboratorios += '<option value="' + x['nombre_lab'] + '" >' + x['nombre_lab'] + '</option>'
+                    Laboratorios += '<option value="' + x['nombre_lab'] + '" >' + x['nombre_lab'] +
+                        '</option>'
                 });
 
                 $("#id_select_laboratorios").empty().append(Laboratorios);
@@ -672,7 +697,10 @@
                     //mensaje(response.responseText, 'error');
                 }
             }).done(function(data) {
-                //location.reload();
+                setTimeout(() => {
+                    location.reload();
+                }, "2   000")
+
             });
         }
 
@@ -762,7 +790,7 @@
         $('#id_new_articulo_cod').val('');
         $('#id_new_articulo_descripcion').val('');
         //Cargar articulos
-       // $('#cont-articulo').toggleClass("col-md-8 col-md-7");
+        // $('#cont-articulo').toggleClass("col-md-8 col-md-7");
         $('#cont-articulo').show();
         $('#opc-articulo').show();
         $('#cont-articulo').removeClass("col-md-8");
@@ -772,7 +800,7 @@
         $('#cont-close').hide();
         $('#cont_new_articulo').removeClass("col-md-8");
         $('#cont_new_articulo').addClass("col-md-7");
-       // $('#cont_new_articulo').toggleClass("col-md-8 col-md-7");
+        // $('#cont_new_articulo').toggleClass("col-md-8 col-md-7");
 
 
     }

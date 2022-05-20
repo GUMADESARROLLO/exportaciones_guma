@@ -4,9 +4,11 @@ namespace App\Models;
 
 use App\Http\Controllers\MailerController;
 use Illuminate\Database\Eloquent\Model;
+use Exception;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
-class Notification extends Model
+class Notification_A extends Model
 {
     //
     protected $table = 'notifications';
@@ -16,31 +18,29 @@ class Notification extends Model
 
     public static function insertarRegistro($factura)
     {
-        $aviso = new Notification();
+        $aviso = new Notification_A();
         $iduser = Auth::id();
         $aviso->usuario_id = $iduser;
-        $aviso->title = " Registro Nuevo" ;
-        $aviso->message ="Se ha insertado un nuevo registro con codigo de factura '$factura' ";
+        $aviso->title = " Registro Nuevo";
+        $aviso->message = "Se ha insertado un nuevo registro con codigo de factura '$factura' ";
         $aviso->leido = 0;
         $aviso->save();
         /*Mandar correo */
         $data = $factura;
         MailerController::enviarMail($data);
         return 0;
+
     }
 
     public static function actualizarRegistro($factura)
     {
-        $aviso = new Notification();
+        $aviso = new Notification_A();
         $iduser = Auth::id();
         $aviso->usuario_id = $iduser;
         $aviso->title = "Registro Actualizado";
-        $aviso->message ="Se ha editado la factura con el codigo '$factura' ";
+        $aviso->message = "Se ha editado la factura con el codigo '$factura' ";
         $aviso->leido = 0;
         $aviso->save();
-       
         return 0;
     }
-
-
 }
