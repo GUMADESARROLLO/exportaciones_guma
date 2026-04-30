@@ -102,9 +102,8 @@
             <div class="container">
                 <div class="row align-items-center">
                     <div class="col-md-8">
-                        <h1 class="display-4 fw-bold">
-                            <i class="fas fa-user-circle me-3"></i>
-                            
+                        <h1 class="fw-bold fs-2 mb-2">
+                            <i class="fas fa-user-circle me-3"></i>                            
                             {{ $cliente['nombre'] ?? 'Juan Perez' }}
                         </h1>
                         <p class="lead mb-0">

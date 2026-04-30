@@ -9,7 +9,7 @@ services:
       - "./:/app/promoCarro"
       - "./default.tmpl:/kool/default.tmpl"
     ports:
-      - "8088:80"
+      - "8180:80"
     environment:
       - APP_NAME=promoCarro
       - PHP_FPM_LISTEN=/run/php-fpm.sock
