@@ -268,21 +268,21 @@
                         </div>
                         <!-- Stats adicionales -->
                         <div class="row mt-4">
-                            <div class="col-md-4 text-center">
+                            <div class="col-md-4 text-center mt-3">
                                 <div class="border rounded p-3">
                                     <i class="fas fa-file-invoice fa-2x text-primary mb-2"></i>
                                     <h4 class="mb-0">{{ $cliente['total_facturas'] }}</h4>
                                     <small class="text-muted">Facturas</small>
                                 </div>
                             </div>
-                            <div class="col-md-4 text-center">
+                            <div class="col-md-4 text-center mt-3">
                                 <div class="border rounded p-3">
                                     <i class="fas fa-ticket-alt fa-2x text-success mb-2"></i>
                                     <h4 class="mb-0">{{ $cliente['total_acciones'] }}</h4>
                                     <small class="text-muted">Acciones Totales</small>
                                 </div>
                             </div>
-                            <div class="col-md-4 text-center">
+                            <div class="col-md-4 text-center mt-3">
                                 <div class="border rounded p-3">
                                     <i class="fas fa-dollar-sign fa-2x text-info mb-2"></i>
                                     <h4 class="mb-0">C$ {{ number_format($cliente['total_compras'] ?? 0, 2) }}</h4>
