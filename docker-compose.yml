@@ -3,7 +3,7 @@ version: "3.7"
 services:
   promoCarro:
     container_name: cn_promoCarro
-    image: kooldev/php:8.2-nginx-sqlsrv-prod
+    image: kooldev/php:7.4-nginx-sqlsrv-prod
     restart: always
     volumes:
       - "./:/app/promoCarro"
