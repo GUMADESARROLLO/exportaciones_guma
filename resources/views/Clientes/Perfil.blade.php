@@ -14,10 +14,38 @@
                 font-family: 'Nunito', sans-serif;
             }
             .client-header {
-                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                background: linear-gradient(135deg, #4e73df 0%, #224abe 100%);
                 color: white;
-                padding: 2rem 0;
+                padding: 2.5rem 0 1.5rem;
                 margin-bottom: 2rem;
+                box-shadow: 0 0.15rem 1.75rem rgba(0,0,0,0.1);
+            }
+            .client-avatar {
+                width: 80px;
+                height: 80px;
+                background: rgba(255,255,255,0.2);
+                border-radius: 50%;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+            }
+            .stat-box {
+                background: rgba(255,255,255,0.15);
+                border-radius: 8px;
+                padding: 0.75rem 1.25rem;
+                text-align: center;
+                backdrop-filter: blur(4px);
+            }
+            .stat-box .stat-number {
+                font-size: 1.5rem;
+                font-weight: 700;
+                display: block;
+            }
+            .stat-box .stat-label {
+                font-size: 0.75rem;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+                opacity: 0.9;
             }
             .client-info-card {
                 background: white;
@@ -53,28 +81,6 @@
                 background: #28a745;
                 color: white;
             }
-            .raffle-number.winner {
-                background: #ffc107;
-                color: #212529;
-            }
-            .status-badge {
-                padding: 0.5rem 1rem;
-                border-radius: 20px;
-                font-size: 0.85rem;
-                font-weight: 600;
-            }
-            .status-active {
-                background: #d4edda;
-                color: #155724;
-            }
-            .status-pending {
-                background: #fff3cd;
-                color: #856404;
-            }
-            .status-completed {
-                background: #d1ecf1;
-                color: #0c5460;
-            }
             .info-label {
                 font-weight: 600;
                 color: #6c757d;
@@ -101,21 +107,25 @@
         <div class="client-header">
             <div class="container">
                 <div class="row align-items-center">
-                    <div class="col-md-8">
-                        <h1 class="fw-bold fs-2 mb-2">
-                            <i class="fas fa-user-circle me-3"></i>                            
-                            {{ $cliente['nombre'] ?? 'Juan Perez' }}
-                        </h1>
-                        <p class="lead mb-0">
-                            <i class="fas fa-qrcode me-2"></i>
-                            <strong>{{ $cliente['codigo'] ?? 'N/D' }}</strong>
+                    <div class="col-auto">
+                        <div class="client-avatar">
+                            <i class="fas fa-user fa-3x"></i>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <h1 class="fw-bold fs-3 mb-1">{{ $cliente['nombre'] ?? 'Cliente' }}</h1>
+                        <p class="mb-0 opacity-75">
+                            <i class="fas fa-qrcode me-1"></i> Código: {{ $cliente['codigo'] ?? 'N/D' }}
                         </p>
                     </div>
-                    <div class="col-md-4 text-md-end">
-                        <div class="client-stats">
-                            <div class="stat-item">
-                                <i class="fas fa-ticket-alt fa-2x"></i>
-                                <span class="stat-number">{{ $cliente['total_acciones'] ?? 5 }}</span>
+                    <div class="col-auto">
+                        <div class="d-flex gap-2">
+                            <div class="stat-box">
+                                <span class="stat-number">{{ $cliente['total_facturas'] ?? 0 }}</span>
+                                <span class="stat-label">Facturas</span>
+                            </div>
+                            <div class="stat-box">
+                                <span class="stat-number">{{ $cliente['total_acciones'] ?? 0 }}</span>
                                 <span class="stat-label">Acciones</span>
                             </div>
                         </div>
@@ -183,16 +193,12 @@
                                             <i class="fas fa-dollar-sign me-1"></i>
                                             C${{ number_format($factura['monto'] ?? 1500, 2) }}
                                         </span>
-                                        <!-- <span class="status-badge status-{{ $factura['estado'] ?? 'active' }}">
-                                            <i class="fas fa-circle me-1" style="font-size: 0.5rem;"></i>
-                                            {{ $factura['estadoTexto'] ?? 'Pagada' }}
-                                        </span> -->
                                     </div>
                                 </div>
                                 <div class="col-md-5 text-md-end">
                                     <small class="text-muted">
                                         <i class="fas fa-ticket me-1"></i>
-                                        Acciones obtenidas ({{ $factura['cantidad_acciones'] ?? 5 }}):
+                                        Acciones obtenidas ({{ $factura['cantidad_acciones'] ?? 0 }}):
                                     </small>
                                     <div class="mt-2">
                                         @forelse($factura['acciones'] ?? [] as $accion)
@@ -207,13 +213,12 @@
                             </div>
                         </div>
                         @empty
-                        <!-- Datos de ejemplo si no hay facturas -->
                         <div class="raffle-card">
                             <div class="row align-items-center">
                                 <div class="col-md-7">
                                     <h5 class="mb-2">
                                         <i class="fas fa-file-invoice text-primary me-2"></i>
-                                        Factura:  -
+                                        Factura: -
                                     </h5>
                                     <div class="d-flex align-items-center gap-3 flex-wrap">
                                         <span class="text-muted">
@@ -222,9 +227,8 @@
                                         </span>
                                         <span class="text-muted">
                                             <i class="fas fa-dollar-sign me-1"></i>
-                                            Total: C$ 0.00
+                                            C$ 0.00
                                         </span>
-                                        
                                     </div>
                                 </div>
                                 <div class="col-md-5 text-md-end">
@@ -234,7 +238,6 @@
                                     </small>
                                     <div class="mt-2">
                                         <span class="raffle-number">00000</span>
-                                        
                                     </div>
                                 </div>
                             </div>
@@ -260,7 +263,7 @@
                                 <div class="d-flex flex-wrap gap-2">
                                     @foreach($cliente['Acciones'] ?? [] as $accion)
                                         <span class="raffle-number active">
-                                            {{ $accion}}
+                                            {{ $accion }}
                                         </span>
                                     @endforeach
                                 </div>
@@ -271,14 +274,14 @@
                             <div class="col-md-4 text-center mt-3">
                                 <div class="border rounded p-3">
                                     <i class="fas fa-file-invoice fa-2x text-primary mb-2"></i>
-                                    <h4 class="mb-0">{{ $cliente['total_facturas'] }}</h4>
+                                    <h4 class="mb-0">{{ $cliente['total_facturas'] ?? 0 }}</h4>
                                     <small class="text-muted">Facturas</small>
                                 </div>
                             </div>
                             <div class="col-md-4 text-center mt-3">
                                 <div class="border rounded p-3">
                                     <i class="fas fa-ticket-alt fa-2x text-success mb-2"></i>
-                                    <h4 class="mb-0">{{ $cliente['total_acciones'] }}</h4>
+                                    <h4 class="mb-0">{{ $cliente['total_acciones'] ?? 0 }}</h4>
                                     <small class="text-muted">Acciones Totales</small>
                                 </div>
                             </div>
@@ -293,6 +296,7 @@
                     </div>
                 </div>
             </div>
+        </div>
 
         <!-- Bootstrap JS -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
