@@ -181,7 +181,7 @@
                                         </span>
                                         <span class="text-muted">
                                             <i class="fas fa-dollar-sign me-1"></i>
-                                            Total: C${{ number_format($factura['monto'] ?? 1500, 2) }}
+                                            C${{ number_format($factura['monto'] ?? 1500, 2) }}
                                         </span>
                                         <!-- <span class="status-badge status-{{ $factura['estado'] ?? 'active' }}">
                                             <i class="fas fa-circle me-1" style="font-size: 0.5rem;"></i>
